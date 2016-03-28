@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script src="http://localhost/node/js/jquery-1.12.0.min.js"></script>
+    </head>
+<h1>Le super Chat temps réel !</h1>
+
+
+    <div>
+        <input placeholder="Votre message..." type="text" id="message" name="message"></input>
+    </div>
+<input type="button" id="send" value="Envoyer"></input>
+
+<ul id="chat"></ul>
+<script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost:8080');
+            var pseudo = prompt('Quel est votre pseudo ?');
+			socket.emit('new_user', pseudo);
+            socket.on('message', function(res) {
+             	var li =  $('<li>').text(res.pseudo + ' : ' + res.message);
+        		$('#chat').append(li);
+    		})
+    		
+    		 $('#send').click(function () {
+                socket.emit('message', $('#message').val());
+            })
+        </script>
+           </body>
+</html>

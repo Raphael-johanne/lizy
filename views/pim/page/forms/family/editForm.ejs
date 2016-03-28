@@ -1,0 +1,71 @@
+<form class="row col-lg-12" action="<%- action %>" method="POST">
+
+	<div class="row">
+		<div class="btn-group pull-right" role="group">
+		  <a class="btn btn-default" href="javascript:history.go(-1)">Back	</a>
+		  <input class="btn btn-default" type="submit" />
+		</div>
+	</div>
+	
+	<ul class="nav nav-tabs">
+	  <li class="active"><a data-toggle="tab" href="#general">General</a></li>
+	  <li><a data-toggle="tab" href="#values">Attributes</a></li>
+	</ul>
+
+	<div class="tab-content">
+	  <div id="general" class="tab-pane fade in active">
+	    	<%- form.fields.title.toHTML() %>
+	  </div>
+	  <div id="values" class="tab-pane fade">
+	  		<div class="btn-group">
+			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			    Add attribute
+			    <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu">
+			   	<li>
+			   	<label for="family-add-attribute">Code: </label>
+  				<input id="family-add-attribute" />
+			   	
+			   	</li>
+			  </ul>
+			</div>
+			
+			<table class="table">
+				<thead>
+				<tr>
+				  <th>Attribute</th>
+				  <th>Required</th>
+				  <th>Action</th>
+				</tr>
+				</thead>
+					<tbody id="family-attributes">&nbsp;</tbody>
+				</table>
+			
+	  </div>
+	  
+	</div>
+	
+	
+	<script>
+	
+		var family = new FamilyForm({});
+		
+		<% if (attributes !== null) {
+			Object.keys(attributes).forEach(function(item, index){ %>
+			
+			family.addElement(
+					"<%= attributes[item]._id %>", 
+					"<%= attributes[item].title %>",
+					"<%= attributes[item].required %>", 
+					"<%= index %>"
+				);
+			
+			<% }); %>
+		<% } %>
+		
+
+	</script>
+	
+</form>
+

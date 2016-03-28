@@ -1,0 +1,47 @@
+<!-- views/partials/head.ejs -->
+
+<meta charset="UTF-8">
+<title>Lisy</title>
+
+<!-- JS (load jquery from a CDN) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<!-- CSS (load bootstrap from a CDN) -->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!-- JS (load bootstrap from a CDN) -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- Add Colorbox JS -->
+<script type="text/javascript" src="../../js/jquery.colorbox-min.js"></script>
+<!-- Add JQuery UI JS -->
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- Add Colorbox CSS -->
+<link rel="stylesheet" href="../../css/colorbox.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!-- Lisy JS -->
+
+<% 
+if (templateData.head && templateData.head['js']) {
+templateData.head['js'].forEach(function(item, index){ %>
+	<script type="text/javascript" src="../../js/<%= item %>"></script>
+<% });
+}
+%>
+
+<!-- Lisy CSS -->
+<% 
+if (templateData.head && templateData.head['css']) {
+templateData.head['css'].forEach(function(item, index){ %>
+	<link rel="stylesheet" href="../../css/<%= item %>" />
+<% });}
+%>
+
+<!-- JS (load custom) -->
+<script src="../../js/global.js"></script>
+
+<!-- CSS (load custom) -->
+<link rel="stylesheet" href="../../css/style.css">
+
+<style>
+    body    { padding-top:50px; }
+</style>
+

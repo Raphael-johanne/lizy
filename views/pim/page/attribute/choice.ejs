@@ -1,0 +1,7 @@
+<!-- Modal -->
+  Please select the type of the attribute :
+  <ul>
+  <% choices.forEach(function(choice){ %>
+  	<li><a href="/attribute/create/<%= choice %>"><%= choice %></a></li>
+  <% }); %>
+  </ul>
