@@ -37,12 +37,9 @@ FamilyProcessor.prototype.treat = function(item, last, writerCallback) {
 		} else {
 			this.attributes.push({code:item.attribute, required:item.required});
 		}
-		//console.log(this.row);
-		//console.log(item);
 		this.row++;
 		
 	}else {
-		console.log('LAST ' +this.row);
 		this.row = 0;
 		var nbrAttributes = this.attributes.length-1;
 	
@@ -52,7 +49,6 @@ FamilyProcessor.prototype.treat = function(item, last, writerCallback) {
 				
 				if (doc === null || typeof doc === 'undefined') {
 					nbrAttributes--;
-					console.log('attributes ['+attribute.code+'] does not exist');
 					return;
 				}
 				
