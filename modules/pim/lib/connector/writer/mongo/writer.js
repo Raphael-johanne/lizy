@@ -31,7 +31,7 @@ MongoWriter.prototype.treat = function(item, last) {
  	      });
 	} else {
 		new this.model(item).save(function( err, item, count ){
-			console.log(item);
+			//console.log(item);
     	  });
 	}
 };

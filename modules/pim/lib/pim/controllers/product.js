@@ -30,7 +30,7 @@ ProductController.controller = function(app, entity) {
 	  
 	  Controller.prototype.addFileToHead('list/product/list.js', 'js');
 	  
-	  list.getList(Item, entity, {'sku':'Code', 'normalizedData.name':'Title'}, {'sku':'Code', 'normalizedData.name':'Title'}, req, function(err, docs, fields, filtersFormHtml, paginationHtml) {
+	  list.getList(Item, entity, {'sku':'Code', 'normalizedData.title':'Title'}, {'sku':'Code', 'normalizedData.title':'Title'}, req, function(err, docs, fields, filtersFormHtml, paginationHtml) {
 		  
 		  if (err) return res.status(404).render('page/404.ejs');
 		  

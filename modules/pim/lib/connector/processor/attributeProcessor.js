@@ -22,6 +22,7 @@ AttributeProcessor.prototype.treat = function(item, last, writerCallback) {
 		/**
 		 * example of override a proceed item, item can come from database or be a new entry.
 		 * doc.name = foo;
+		 * @todo must be an availabe type
 		 */
 		if (!last){
 			writerCallback.treat(doc, last);

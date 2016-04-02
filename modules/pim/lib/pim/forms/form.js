@@ -50,6 +50,9 @@ Form.prototype.getFields = function() {
 			case 'textarea':
 				field.widget  = widgets.textarea();
 				break;
+			case 'media':
+				field.widget  = widgets.textarea();
+				break;
 		}
 		
 		data[item.code] = fields.string(field);

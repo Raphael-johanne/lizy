@@ -18,7 +18,7 @@ util.inherits(CsvReader, Reader);
 
 CsvReader.prototype.treat = function(processorCallBack, writerCallback) {
 	
-	var stream = fs.createReadStream(this.config.path);
+	var stream = fs.createReadStream(this.config.path  +'/products.csv');
 	 
 	var csvStream = csv({headers: true})
 	    .on("data", function(data){

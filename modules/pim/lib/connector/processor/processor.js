@@ -15,9 +15,10 @@ function Processor(config) {
 		&& typeof this.config.key !== 'undefined') {
 		
 		this.model	= mongoose.model(this.config.collection);
-		this.key	= this.config.key	   
+		this.key	= this.config.key;	   
+		
 	} else {
-		this.model    = null;
+		this.model	= null;
 	}
 }
 
@@ -28,9 +29,11 @@ Processor.prototype.treat = function(item, last, callBack) {
 	 * if model and item provided in config of the profile,
 	 * trying to load item
 	 */
+	
 	if (this.model !== null && item !== null) {
 		var conditions = {};
 		conditions[this.key] = item[this.key];
+		
 		this.model.findOne(conditions, {},function(err, doc){
 			
 			item.mdate = moment().format('YYYY/MM/DD HH:mm');

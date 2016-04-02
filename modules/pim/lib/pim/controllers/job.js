@@ -35,7 +35,7 @@ JobController.controller = function(app, entity) {
  		  
    		  step.init(doc.config);
    		  step.lunch();
-   		 
+   		  
    		});
   });
 	
@@ -45,18 +45,18 @@ JobController.controller = function(app, entity) {
   app.get('/'+entity+'/list/:type?/:p?/:limit?', function(req, res) {
 	  /*
 	  var job = {
-			  code 			: "import_family_csv",
-			  name 			: "Import families from CSVs",
+			  code 			: "import_product_csv",
+			  name 			: "Import products from CSVs",
 			  type 			: "import",
 			  config : {
-				  path : "modules/pim/import/families",
+				  path : "modules/pim/import/products",
 				  connector : {
-					  reader : "csv/familyReader",
-					  processor : "familyProcessor",
+					  reader : "csv/reader",
+					  processor : "productProcessor",
 					  writer : "mongo/writer"
 				  },
-				  collection : "family",
-			  	  key : "code"
+				  collection : "product",
+			  	  key : "sku"
 			  }
 	  };
 	  new Item(job).save( function( err, item, count ){
