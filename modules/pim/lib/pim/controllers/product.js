@@ -2,17 +2,18 @@
  * Copyright(c) Raphael Colboc
  * MIT Licensed
  */
-
-var Controller 	= require("./controller.js");
-var mongoose 	= require('mongoose');
-var forms 		= require('../forms/product');
-var List 		= require('../services/list');
 require('../models/product');
-var util 		= require("util");
-var Item     	= mongoose.model('product');
-var Family     	= mongoose.model('family');
-var Attribute  	= mongoose.model('attribute');
-var merge 		= require('merge');
+
+var Controller 		= require("./controller.js");
+var mongoose 		= require('mongoose');
+var forms 			= require('../forms/product');
+var List 			= require('../services/list');
+var util 			= require("util");
+var Item     		= mongoose.model('product');
+var Family     		= mongoose.model('family');
+var Attribute  		= mongoose.model('attribute');
+var merge 			= require('merge');
+var mediaService 	= require('../../connector/service/media.js');
 
 function ProductController() {
 	Controller.call(this);
@@ -149,10 +150,15 @@ ProductController.controller = function(app, entity) {
  	  Item.findById(id, function(err, doc) {
  		  if (err) return res.status(404).render('pim/page/404.ejs');
  		 
+ 		  var sku = doc.sku;
+ 		  
  		 doc.remove(function (err, doc ){
  		      if (err) return next( err );
  		     
  		      res.redirect( '/'+entity+'/list' );
+ 		      
+ 		      // remove media of product
+ 		      mediaService.removeMediaBySku(sku);
  		    });
  		});
    });
