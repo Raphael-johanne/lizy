@@ -19,7 +19,6 @@ ProductForm.prototype.getEdit = function(data) {
 
 	var form = forms.create(Form.prototype.getFields.call(this));	 
 	return Form.prototype.afterCreate.call(this, form, data, 'pim/page/forms/product/editForm.ejs');
-	 
 };
 
 ProductForm.prototype.getCreate = function(data) {

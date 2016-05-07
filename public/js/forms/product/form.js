@@ -3,9 +3,9 @@ var ProductForm = function(options){
 		$('#product-set-family').autocomplete({
 		      source: function(req, res){ 
 		    		$.ajax({
-		                url : '/family/product/families',
-		                dataType : 'json',
-		                data : {
+		                url 		: '/family/product/families',
+		                dataType 	: 'json',
+		                data 		: {
 		                    name_startsWith : $('#product-set-family').val(), 
 		                },
 		                success : function(data){
@@ -21,4 +21,27 @@ var ProductForm = function(options){
 	    });
 	}
 	
+	$('.remove-media').each(function(index, item){
+		$(item).click(function(event){
+			event.preventDefault();
+			$(this).prev().prev().attr("src", "");
+			$(this).prev().val("");
+		})
+	});
+	
+	$('.fileupload').each(function (index, item) {
+		var attr = item.getAttribute('data_attribute_code');
+		$(item).fileupload({
+	    	dataType: 'json',
+	    	formData: {"sku":$("#id_sku").val(), "attributeCode": attr},
+	        done: function (e, data) {
+	            $.each(data.files, function (index, file) {
+	            	//$("#" + attr).val(data.);
+	            	console.log(data);
+	                $('<p/>').text(file.name).appendTo($(item));
+	                
+	            });
+	        }
+	    });
+	});
 }
