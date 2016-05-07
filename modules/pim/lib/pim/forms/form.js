@@ -6,6 +6,7 @@
 var events 		= require("events");
 var util 		= require("util");
 var widgets 	= require('forms').widgets;
+var customWigets = require('./widgets/widgets.js');
 var fieldsToAdd = [];
 var forms 		= require('forms');
 var fields 		= forms.fields;
@@ -51,7 +52,7 @@ Form.prototype.getFields = function() {
 				field.widget  = widgets.textarea();
 				break;
 			case 'media':
-				field.widget  = widgets.textarea();
+				field.widget  = customWigets.media();
 				break;
 		}
 		

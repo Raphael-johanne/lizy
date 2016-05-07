@@ -3,10 +3,10 @@
  * MIT Licensed
  */
 
-var Processor 	= require("./processor.js");
-var events 		= require("events");
-var util 		= require("util");
-var mongoose 	= require('mongoose');
+var Processor 			= require("./processor.js");
+var events 				= require("events");
+var util 				= require("util");
+var mongoose 			= require('mongoose');
 var attributeService 	= require('../service/attribute');
 
 function ProductProcessor(config) {
@@ -39,10 +39,10 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 					console.log(error) ;
 				});
 			} else {
-				var product = {};
-				product.family = familyId;
-				product.sku = item.sku;
-				product.normalizedData = item;
+				var product 			= {};
+				product.family 			= familyId;
+				product.sku 			= item.sku;
+				product.normalizedData 	= item;
 				
 				var updateProduct = function(product){
 					
@@ -82,8 +82,6 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 					  });
 				  }.bind(this));
 			 }
-			
-			//console.log(JSON.stringify(doc));
 		}.bind(this));
 	}
 	

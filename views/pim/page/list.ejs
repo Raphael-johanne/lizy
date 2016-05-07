@@ -5,7 +5,7 @@
 
 <div class="table-responsive">
  <% if (items.length > 0) { %>
- <%- pagination %>
+ 	<%- pagination %>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -14,15 +14,13 @@
 		<%	}); %>
         	<th>Actions</th>
         </tr>
-        
       </thead>
       <tbody>
-      
 		<%	items.forEach(function(el, index) { %>
 				<tr>
 					<% Object.keys(fields).forEach(function(key){ %>
-			  			<td><%- el[key]  %></td>
-					<%	}); %>
+			  			<td><%- (key.indexOf("normalizedData" != -1 )) ? "" : el[key] %></td>
+					<% });  %>
 					<td>
 						<a onclick="return confirm('Do you really want to delete this item ?')" href="/<%= entity %>/remove/<%= el._id %>">Remove</a>
 						<a href="/<%= entity %>/edit/<%= el._id %>">Edit</a></li>
@@ -38,5 +36,5 @@
     <div class="col-lg-12 well">
     No items founded
     </div>
-    <% } %>
+  <% } %>
 </div>

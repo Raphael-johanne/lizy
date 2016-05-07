@@ -3,10 +3,12 @@
  * MIT Licensed
  */
 
-var http = require('http');
-var fs = require('fs');
-var path = require('path');
-var mkdirp = require('mkdirp');
+var http 			= require('http');
+var fs 				= require('graceful-fs');
+var path 			= require('path');
+var mkdirp 			= require('mkdirp');
+var mediaService 	= require('./media.js');
+
 
 module.exports = {
     getAttributeTypeCodes:function() {
@@ -41,10 +43,11 @@ module.exports = {
 	        				break;
 	        			case 'media':
 	        				
-	        				var eanPath = 'modules/pim/media/' + data.sku[0] + "/" + data.sku[1] + "/" + data.sku[2] + "/" + data.sku[3];
-	        				
- 	        				mkdirp(eanPath , function(err) { 
- 	        					var filePath = eanPath + "/" + data.sku + "_" + attribute.code + path.extname(data[attribute.code]);
+	        				var eanMediaPath = mediaService.getEanMediaPath(data.sku);
+	        				var fullMediaPath = mediaService.getFullMediaPath(data.sku, attribute.code, data[attribute.code]);
+ 	        				
+	        				mkdirp(eanMediaPath , function(err) { 
+ 	        					var filePath = fullMediaPath;
  	        					var httpMedia = data[attribute.code];
  	        					data[attribute.code] = filePath;
  	        					var file = fs.createWriteStream(filePath);
@@ -57,8 +60,6 @@ module.exports = {
 	        			}
         		}
     		}
-    		
-    		// console.log(JSON.stringify(attribute.code));
     	});
     	
     	callback(errors, data);

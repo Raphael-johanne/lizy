@@ -30,19 +30,21 @@ ProductController.controller = function(app, entity) {
 	  
 	  Controller.prototype.addFileToHead('list/product/list.js', 'js');
 	  
-	  list.getList(Item, entity, {'sku':'Code', 'normalizedData.title':'Title'}, {'sku':'Code', 'normalizedData.title':'Title'}, req, function(err, docs, fields, filtersFormHtml, paginationHtml) {
+	  list.getList(Item, entity, {'sku':'Code', 'normalizedData.title':'Title'}, {'sku':'Code', 'normalizedData.title':'Title'}, 
+			  req, 
+			  function(err, docs, fields, filtersFormHtml, paginationHtml) {
 		  
-		  if (err) return res.status(404).render('page/404.ejs');
-		  
-		  Controller.prototype.render(res, 'pim/page/list.ejs', {
-	    	  'items'		: docs,
-	    	  'entity'  	: entity,
-	    	  'fields'  	: fields,
-	    	  'filters' 	: filtersFormHtml,
-	    	  'pagination' 	: paginationHtml
-	    	  }
-	      );
-	  });
+				  if (err) return res.status(404).render('page/404.ejs');
+				  
+				  Controller.prototype.render(res, 'pim/page/list.ejs', {
+			    	  'items'		: docs,
+			    	  'entity'  	: entity,
+			    	  'fields'  	: fields,
+			    	  'filters' 	: filtersFormHtml,
+			    	  'pagination' 	: paginationHtml
+			    	  }
+			      );
+	  			});
 	  
   });
 
@@ -77,7 +79,10 @@ ProductController.controller = function(app, entity) {
 	
 	  var id = req.params.id;
 	  
-	  Controller.prototype.addFileToHead('forms/family/form.js', 'js');
+	  Controller.prototype.addFileToHead('forms/product/form.js', 'js');
+	  Controller.prototype.addFileToHead('jquery/upload/js/jquery.iframe-transport.js', 'js');
+	  Controller.prototype.addFileToHead('jquery/upload/js/jquery.fileupload.js', 'js');
+	  
 	  var formInstance = new forms();
 	  
 	  Controller.prototype.once('attributes_loaded', function(doc) {
@@ -199,9 +204,8 @@ ProductController.controller = function(app, entity) {
  	        },
  	        error: function (form) {
  	        	
- 	        	console.log(form.toHTML());
  	        	Controller.prototype.render(res, 'pim/page/form.ejs', {
- 		  	    	  'form'	: form,
+ 		  	    	  'form'	: form.toHTML(),
  		  	    	  'action'	: '/'+entity+'/save'
  		  	    	  }
  	  	      );
