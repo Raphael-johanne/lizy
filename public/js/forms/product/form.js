@@ -36,10 +36,9 @@ var ProductForm = function(options){
 	    	formData: {"sku":$("#id_sku").val(), "attributeCode": attr},
 	        done: function (e, data) {
 	            $.each(data.files, function (index, file) {
-	            	//$("#" + attr).val(data.);
-	            	console.log(data);
+	            	$('#' + attr).val(data.result.fullMediaPath);
+	            	$('#' + attr).prev().attr('src','/media/get/' + data.result.fullMediaPath);
 	                $('<p/>').text(file.name).appendTo($(item));
-	                
 	            });
 	        }
 	    });

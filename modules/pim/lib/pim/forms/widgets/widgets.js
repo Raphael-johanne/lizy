@@ -1,4 +1,7 @@
-'use strict';
+/*!
+ * Copyright(c) Raphael Colboc
+ * MIT Licensed
+ */
 
 var tag = require('forms/lib/tag');
 
