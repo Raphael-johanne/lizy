@@ -3,7 +3,8 @@
  * MIT Licensed
  */
 
-var path = require('path');
+var path 	= require('path');
+var fs		= require('fs');
 
 module.exports = {
     getEanMediaPath:function(sku) {
@@ -17,5 +18,13 @@ module.exports = {
     getFullMediaPath : function(sku, attributeCode, fileName){
     	return this.getEanMediaPath(sku) 
     	+ "/" + sku + "_" + attributeCode + "_" + fileName;
+    },
+    
+    removeMediaBySku : function(sku){
+    	fs.unlink(this.getEanMediaPath(sku) + "/" + sku + "*", function(){
+    		/**
+    		 * @TODO notify customer with JSON response
+    		 */
+    	});
     }
 }
