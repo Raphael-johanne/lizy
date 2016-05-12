@@ -7,11 +7,11 @@ var Processor 	= require("./processor.js");
 var events 		= require("events");
 var util 		= require("util");
 
-function AttributeProcessor(config) {
+function AttributeProcessor(config, jobExecution) {
 	/**
 	 * @see parent Processor
 	 */
-	Processor.call(this, config);
+	Processor.call(this, config, jobExecution);
 }
 
 util.inherits(AttributeProcessor, Processor);

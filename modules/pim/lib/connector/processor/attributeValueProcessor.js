@@ -7,12 +7,12 @@ var Processor 	= require("./processor.js");
 var events 		= require("events");
 var util 		= require("util");
 
-function AttributeValueProcessor(config) {
+function AttributeValueProcessor(config, jobExecution) {
 	
 	/**
 	 * @see parent Processor
 	 */
-	Processor.call(this, config);
+	Processor.call(this, config, jobExecution);
 	
 	/**
 	 * @var attributes array will contains all attributes with their options

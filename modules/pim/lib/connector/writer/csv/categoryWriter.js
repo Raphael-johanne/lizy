@@ -7,8 +7,8 @@ var events 		= require("events");
 var util 		= require("util");
 var CsvWriter 	= require("./csvWriter.js");
 
-function CategoryWriter(config) {
-	CsvWriter.call(this, config);
+function CategoryWriter(config, jobExecution) {
+	CsvWriter.call(this, config, jobExecution);
 }
 
 util.inherits(CategoryWriter, CsvWriter);

@@ -12,6 +12,7 @@ var util 		= require("util");
 var Item     	= mongoose.model('job');
 var merge 		= require('merge');
 var Step = require('../../connector/step/step');
+var JobExecution = require('../../connector/service/jobExecution');
 
 function JobController() {
 	Controller.call(this);
@@ -26,17 +27,32 @@ JobController.controller = function(app, entity) {
   */
   app.get('/'+entity+'/execute/:code', function(req, res) {
 	  
-	  var code = req.params.code;
-   	  
+	  var code 			= req.params.code;
+	  var jobExecution  = new JobExecution();
+	  
+	  Controller.prototype.addFileToHead('/socket.io/socket.io.js', null);
+	  Controller.prototype.addFileToHead('job/execution.js', 'js');
+	  
+	  jobExecution.on('job_execution_report', function(notifications) {
+		  app.get('io_default').on('connection', function(socket){
+	   	    	socket.emit('job_execution_report_socket', JSON.stringify(notifications));
+	   		});
+	  });
+	  
    	  Item.findOne({'code':code}, {}, function(err, doc) {
    		  if (err) return res.status(404).render('pim/page/404.ejs');
   
    		  var step = new Step();
  		  
-   		  step.init(doc.config);
+   		  step.init(doc.config, jobExecution);
    		  step.lunch();
-   		  
    		});
+   	  
+   	  Controller.prototype.render(res, 'pim/page/job/execution.ejs', {
+   		  protocol : req.protocol,
+   		  host     : req.hostname,
+   		  port     : app.get('port')
+	  });
   });
 	
   /**

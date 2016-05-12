@@ -9,8 +9,10 @@ var merge 		= require('merge');
 var mongoose 	= require('mongoose');
 var moment 		= require('moment');
 
-function Processor(config) {
-	this.config = config;
+function Processor(config, jobExecution) {
+	this.config 		= config;
+	this.jobExecution 	= jobExecution;
+	
 	if (typeof this.config.collection !== 'undefined'
 		&& typeof this.config.key !== 'undefined') {
 		

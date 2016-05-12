@@ -10,11 +10,11 @@ var moment 		= require('moment');
 var mongoose 	= require('mongoose');
 var Item        = mongoose.model('category');
 
-function CategoryProcessor(config) {
+function CategoryProcessor(config, jobExecution) {
 	/**
 	 * @see parent Processor
 	 */
-	Processor.call(this, config);
+	Processor.call(this, config, jobExecution);
 }
 
 util.inherits(CategoryProcessor, Processor);

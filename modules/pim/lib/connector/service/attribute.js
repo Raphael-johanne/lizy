@@ -44,18 +44,19 @@ module.exports = {
 	        			case 'media':
 	        				
 	        				var eanMediaPath = mediaService.getEanMediaPath(data.sku);
-	        				var fullMediaPath = mediaService.getFullMediaPath(data.sku, attribute.code, data[attribute.code]);
- 	        				
+	        				var fullMediaPath = mediaService.getFullMediaPath(data.sku, attribute.code, path.extname(data[attribute.code]));
+ 	        				/*
 	        				mkdirp(eanMediaPath , function(err) { 
  	        					var filePath = fullMediaPath;
  	        					var httpMedia = data[attribute.code];
  	        					data[attribute.code] = filePath;
  	        					var file = fs.createWriteStream(filePath);
- 		        				var request = http.get(httpMedia, function(response) {
+ 		        				var request = http.request(httpMedia, function(response) {
  		        					response.pipe(file);
  		        				});
+ 		        				request.end();
 	        				});
-	        				
+	        				*/
  	        				break;
 	        			}
         		}

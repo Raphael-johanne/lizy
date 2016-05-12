@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
 
-
 //load modules
 var i18n = require('i18n-2');
 
@@ -46,15 +45,6 @@ app.set('view engine', 'ejs');
 app.set('root', __dirname);
 
 app.use(express.static(path.join(__dirname, 'public')));
-var Step = require('./modules/pim/lib/connector/step/step');
-var step = new Step();
-var config = "{\"code\" : \"export_category_csv\",\"path\" : \"modules/pim/export/category.csv\",\"connector\" : {\"reader\" 	: \"mongo/categoryReader\",\"processor\"  : \"categoryProcessor\",\"writer\"     : \"csv/categoryWriter\"}}";
-// attribvar config = "{\"code\" : \"export_attribute_csv\",\"path\" : \"modules/pim/export/attribute.csv\",\"connector\" : {\"reader\" 	: \"mongo/attributeReader\",\"processor\"  : \"attributeProcessor\",\"writer\"     : \"csv/attributeWriter\"}}";
-//var config = "{\"code\" : \"export_attribute_value_csv\",\"path\" : \"modules/pim/export/attributeValue.csv\",\"connector\" : {\"reader\" 	: \"mongo/attributeValueReader\",\"processor\"  : \"attributeValueProcessor\",\"writer\"     : \"csv/attributeValueWriter\"}}";
-
-//step.init(config);
-//step.lunch();
-
 
 // dynamically include routes (Controller)
 fs.readdirSync('./modules/pim/lib/pim/controllers').forEach(function (file) {
@@ -71,7 +61,13 @@ fs.readdirSync('./modules/pim/lib/pim/controllers').forEach(function (file) {
   }
 });
 
-http.createServer(app).listen(app.get('port'), function(){
+var httpd = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
+/** 
+ * build default io socket for the pim
+ */
+var io = require('socket.io').listen(httpd, { log: false });
+
+app.set('io_default', io);

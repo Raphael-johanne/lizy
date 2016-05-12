@@ -35,6 +35,15 @@ templateData.head['css'].forEach(function(item, index){ %>
 <% });}
 %>
 
+<!--  Lizy origin files (not prefix) -->
+<% 
+if (templateData.head && templateData.head['origin']) {
+templateData.head['origin'].forEach(function(item, index){ %>
+	<script type="text/javascript" src="<%= item %>"></script>
+<% });
+}
+%>
+
 <!-- JS (load custom) -->
 <script src="../../js/global.js"></script>
 

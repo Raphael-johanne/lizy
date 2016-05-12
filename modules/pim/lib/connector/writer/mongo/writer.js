@@ -8,9 +8,9 @@ var util 	= require("util");
 var Writer 	= require("../writer.js");
 var mongoose 			= require('mongoose');
 
-function MongoWriter(config) {
+function MongoWriter(config, jobExecution) {
 	
-	Writer.call(this, config);
+	Writer.call(this, config, jobExecution);
 	
 	if (typeof this.config.collection !== 'undefined'
 		&& typeof this.config.key !== 'undefined') {
