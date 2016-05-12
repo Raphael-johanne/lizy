@@ -9,12 +9,12 @@ var util 				= require("util");
 var mongoose 			= require('mongoose');
 var attributeService 	= require('../service/attribute');
 
-function ProductProcessor(config) {
+function ProductProcessor(config, jobExecution) {
 	
 	/**
 	 * @see parent Processor
 	 */
-	Processor.call(this, config);
+	Processor.call(this, config, jobExecution);
 	
 	/**
 	 * @var attributes array will contains all attributes of the family with code and requirement condition
@@ -35,10 +35,9 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 	ProductProcessor.prototype.on('attributes_loaded', function(item, attributes, familyId) {
 		attributeService.validate(attributes, item, function(err, item){
 			if (err.length > 0) {
-				err.forEach(function(error, index){
-					console.log(error) ;
-				});
+				this.jobExecution.addErrors(err, item.sku);
 			} else {
+			
 				var product 			= {};
 				product.family 			= familyId;
 				product.sku 			= item.sku;
@@ -47,7 +46,6 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 				var updateProduct = function(product){
 					
 					Processor.prototype.treat.call(this, product, last, function(doc, last){
-						console.log(' Write ' + product.sku);
 						writerCallback.treat(doc, last);
 					});
 				}.bind(this);

@@ -6,8 +6,9 @@
 var events 	= require("events");
 var util 	= require("util");
 
-function Writer(config) {
-	this.config = config;
+function Writer(config, jobExecution) {
+	this.config 		= config;
+	this.jobExecution 	= jobExecution;
 }
 
 util.inherits(Writer, events.EventEmitter);

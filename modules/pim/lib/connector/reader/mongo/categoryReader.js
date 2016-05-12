@@ -9,8 +9,8 @@ var util 		= require("util");
 var mongoose 	= require('mongoose');
 var model     	= mongoose.model('category');
 
-function CategoryReader(config) {
-	Reader.call(this, config);
+function CategoryReader(config, jobExecution) {
+	Reader.call(this, config, jobExecution);
 }
 
 util.inherits(CategoryReader, Reader);

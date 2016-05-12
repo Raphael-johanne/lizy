@@ -13,19 +13,19 @@ function Step(config)
 	this.writer 	= null;
 	this.code 		= null;
 	
-	this.init = function(config)
+	this.init = function(config, jobExecution)
 	{
 		var Reader  = require('../reader/' + config.connector.reader);
-		this.reader = new Reader(config);
+		this.reader = new Reader(config, jobExecution);
 		
 		if (typeof config.connector.processor !== 'undefined') {
 			var Processor  = require('../processor/' + config.connector.processor);
-			this.processor = new Processor(config);
+			this.processor = new Processor(config, jobExecution);
 		}
 		
 		if (typeof config.connector.writer !== 'undefined') {
 			var Writer  = require('../writer/' + config.connector.writer);
-			this.writer = new Writer(config);
+			this.writer = new Writer(config, jobExecution);
 		}
 	}
 	

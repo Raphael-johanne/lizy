@@ -9,8 +9,8 @@ var CsvReader 	= require("./reader.js");
 var fs 			= require("fs");
 var csv 		= require("fast-csv");
 
-function FamilyReader(config) {
-	CsvReader.call(this, config);
+function FamilyReader(config, jobExecution) {
+	CsvReader.call(this, config, jobExecution);
 }
 
 util.inherits(FamilyReader, CsvReader);

@@ -6,6 +6,7 @@ var moment = require('moment');
 var templateData = {};
 var events = require("events");
 var util = require("util");
+var ORIGIN_FILE_TYPE = 'origin';
 
 function Controller() {}
 
@@ -33,11 +34,15 @@ Controller.prototype.addFileToHead = function(path, type) {
 		templateData.head[type] = [];
 	}
 	
+	if (type === null) {
+		type = ORIGIN_FILE_TYPE;
+		templateData.head[type] = [];
+	}
+	
 	if (templateData.head[type].indexOf(path) == -1) {
 		templateData.head[type].push(path);
 	}
 }
-
 
 Controller.controller = function(app, entity) {};
 

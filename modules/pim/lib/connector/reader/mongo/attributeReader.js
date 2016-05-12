@@ -9,8 +9,8 @@ var util 		= require("util");
 var mongoose 	= require('mongoose');
 var model     	= mongoose.model('attribute');
 
-function AttributeReader(config) {
-	Reader.call(this, config);
+function AttributeReader(config, jobExecution) {
+	Reader.call(this, config, jobExecution);
 }
 
 util.inherits(AttributeReader, Reader);

@@ -10,9 +10,13 @@ var fs 			= require("fs");
 var csv 		= require("fast-csv");
 var csvStream 	= csv.createWriteStream({headers: true});
   
-function CsvWriter(config) {
+function CsvWriter(config, jobExecution) {
+	
+	this.config 		= config;
+	this.jobExecution 	= jobExecution;
+	
 	if (typeof config !== 'undefined') {
-		writableStream = fs.createWriteStream(config.path);
+		writableStream = fs.createWriteStream(this.config.path);
 		csvStream.pipe(writableStream);
 		
 		writableStream.on("finish", function(){

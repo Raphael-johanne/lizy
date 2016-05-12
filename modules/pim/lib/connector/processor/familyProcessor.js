@@ -8,12 +8,12 @@ var events 		= require("events");
 var util 		= require("util");
 var mongoose 	= require('mongoose');
 
-function FamilyProcessor(config) {
+function FamilyProcessor(config, jobExecution) {
 	
 	/**
 	 * @see parent Processor
 	 */
-	Processor.call(this, config);
+	Processor.call(this, config, jobExecution);
 	
 	/**
 	 * @var attributes array will contains all attributes of the family with code and requirement condition
