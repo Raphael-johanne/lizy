@@ -31,11 +31,12 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 	
 	var attributes = [];
 	ProductProcessor.prototype.removeAllListeners('attributes_loaded');
-	
+
 	ProductProcessor.prototype.on('attributes_loaded', function(item, attributes, familyId) {
 		attributeService.validate(attributes, item, function(err, item){
+			this.jobExecution.addReadEntry();
 			if (err.length > 0) {
-				this.jobExecution.addErrors(err, item.sku);
+				this.jobExecution.addError(err, item.sku);
 			} else {
 			
 				var product 			= {};
