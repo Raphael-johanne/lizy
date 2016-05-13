@@ -1,0 +1,16 @@
+<form class="row col-lg-12" action="<%- action %>" method="POST">
+	<div class="row">
+		<div class="btn-group pull-right" role="group">
+		  <a class="btn btn-default" href="javascript:history.go(-1)">Back	</a>
+		  <input class="btn btn-default" type="submit" />
+		</div>
+	</div>
+	<ul class="nav nav-tabs">
+	  <li class="active"><a data-toggle="tab" href="#general">General</a></li>
+	  <li><a data-toggle="tab" href="#values">Attributes</a></li>
+	</ul>
+	<div class="tab-content">
+	  <div id="general" class="tab-pane fade in active">
+	    	<%- form %>
+	  </div>
+</form>

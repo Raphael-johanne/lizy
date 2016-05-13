@@ -9,9 +9,9 @@ var DEFAULT_EVENT_NAME 	= "job_execution_report";
 var ERROR_CODE 			= "ERROR";
 var WARNING_CODE 		= "WARNING";
 var SUCCESS_CODE 		= "SUCCESS";
-var NBR_ITEM_TO_EMIT    = 100;
-var iterator 			= 0;
+var NOTIFICATION_CODE 	= "NOTIFICATION";
 var notifications 		= [];
+var iterator  			= 0;
 
 function jobExecution(options) {
 	
@@ -19,29 +19,50 @@ function jobExecution(options) {
 	
 	this.eventName = (typeof options.eventName !== 'undefined')
 		? options.eventName : DEFAULT_EVENT_NAME;	
+	
+	this.nbrRead 	= 0;
+	this.nbrUpdate 	= 0;
+	this.nbrCreate 	= 0;
+	this.nbrError 	= 0;
 }
 
 util.inherits(jobExecution, events.EventEmitter);
 
-jobExecution.prototype.addErrors = function(messages, identifier) {
-	this.emitEvent(ERROR_CODE, messages, identifier);
+jobExecution.prototype.addError = function(message, identifier) {
+	this.nbrError++;
+	this.emitEvent(ERROR_CODE, message, identifier);
+}
+
+jobExecution.prototype.addNotification = function(message) {
+	this.emitEvent(NOTIFICATION_CODE, message);
+}
+
+jobExecution.prototype.addReadEntry = function() {
+	this.nbrRead++;
+	this.emitEvent();
+}
+
+jobExecution.prototype.addUpdateEntry = function() {
+	this.nbrUpdate++;
+	this.emitEvent();
+}
+
+jobExecution.prototype.addCreateEntry = function() {
+	this.nbrCreate++;
+	this.emitEvent();
 }
 
 jobExecution.prototype.emitEvent = function(code, messages, identifier) {
-	
-	iterator++;
-	
-	if(iterator >= NBR_ITEM_TO_EMIT) {
-		this.emit(this.eventName, notifications);
-		notifications = [];
-		iterator = 0;
-	} else {
-		notifications.push({
-			"code"       : code,
-			"messages"   : messages,
-			"identifier" : identifier
-		}) 
-	}
+		
+	this.emit(this.eventName, {
+		"code"       : code || "",
+		"messages"   : messages || "",
+		"identifier" : identifier || "",
+		"read"		 : this.nbrRead,
+		"update"	 : this.nbrUpdate,
+		"create"     : this.nbrCreate,
+		"error"	 	 : this.nbrError
+	});
 }
 
 module.exports = jobExecution;

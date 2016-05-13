@@ -9,7 +9,6 @@ var path 			= require('path');
 var mkdirp 			= require('mkdirp');
 var mediaService 	= require('./media.js');
 
-
 module.exports = {
     getAttributeTypeCodes:function() {
         return [
@@ -45,7 +44,10 @@ module.exports = {
 	        				
 	        				var eanMediaPath = mediaService.getEanMediaPath(data.sku);
 	        				var fullMediaPath = mediaService.getFullMediaPath(data.sku, attribute.code, path.extname(data[attribute.code]));
- 	        				/*
+	        				
+	        				/**
+	        				 * @TODO no more open socket available for a large file of products.
+	        				 */
 	        				mkdirp(eanMediaPath , function(err) { 
  	        					var filePath = fullMediaPath;
  	        					var httpMedia = data[attribute.code];
@@ -56,7 +58,7 @@ module.exports = {
  		        				});
  		        				request.end();
 	        				});
-	        				*/
+	        				
  	        				break;
 	        			}
         		}
@@ -71,6 +73,9 @@ module.exports = {
     },
     
     validateValueInValues:function(attribute, data){
+    	/**
+    	 * @TODO validate value in values for select / option attribute field type
+    	 */
     	return true;
     	//return (attribute.required == 1)? data.replace(/^\s+/g, '').length:true;
     },

@@ -1,3 +1,8 @@
+/*!
+ * Copyright(c) Raphael Colboc
+ * MIT Licensed
+ */
+
 var Execution = function(urlSocketConnection){
 	
 	this.socket = io.connect(urlSocketConnection);
@@ -6,10 +11,16 @@ var Execution = function(urlSocketConnection){
 	 * @TODO do not use constant string inline, prefer shared same constant
 	 */
 	this.socket.on("job_execution_report_socket", function(data){
-		var data = JSON.parse(data); //console.log(data);
-		data.forEach(function(item, index){
-			this.addElement(item);
-		}.bind(this));
+		var data = JSON.parse(data);
+		$('#execution-read').text(data.read);
+		$('#execution-create').text(data.create);
+		$('#execution-update').text(data.update);
+		$('#execution-error').text(data.error);
+		
+		if (data.code != ""
+			&& data.messages != "") {
+			this.addElement(data);	
+		}
 		
 	}.bind(this));
 	
@@ -36,6 +47,6 @@ var Execution = function(urlSocketConnection){
 		container.append(label);
 		container.append(label2);
 		container.append(label3);
-		container.prependTo($('#general'));
+		container.appendTo($('#general'));
 	}
 }

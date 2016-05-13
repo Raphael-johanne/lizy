@@ -24,15 +24,24 @@ function MongoWriter(config, jobExecution) {
 util.inherits(MongoWriter, Writer);
 
 MongoWriter.prototype.treat = function(item, last) {
+	
 	if (typeof item._id !== 'undefined') {
 		item.save( function ( err, item, count ){
-			if (err) console.log("WRITER ERROR : " + err);
- 			 //console.log("update " + item._id);
- 	      });
+			if (err) {
+				this.jobExecution.addError(err, item.sku);
+			} else {
+				this.jobExecution.addUpdateEntry();
+			}
+			
+ 	      }.bind(this));
 	} else {
 		new this.model(item).save(function( err, item, count ){
-			//console.log(item);
-    	  });
+			if (err) {
+				this.jobExecution.addError(err, item.sku);
+			} else {
+				this.jobExecution.addCreateEntry();
+			}
+    	  }.bind(this));
 	}
 };
 

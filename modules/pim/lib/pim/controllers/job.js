@@ -33,10 +33,10 @@ JobController.controller = function(app, entity) {
 	  Controller.prototype.addFileToHead('/socket.io/socket.io.js', null);
 	  Controller.prototype.addFileToHead('job/execution.js', 'js');
 	  
-	  jobExecution.on('job_execution_report', function(notifications) {
-		  app.get('io_default').on('connection', function(socket){
+	  app.get('io_default').on('connection', function(socket){
+		  jobExecution.on('job_execution_report', function(notifications) {
 	   	    	socket.emit('job_execution_report_socket', JSON.stringify(notifications));
-	   		});
+	   	  });
 	  });
 	  
    	  Item.findOne({'code':code}, {}, function(err, doc) {
@@ -51,7 +51,8 @@ JobController.controller = function(app, entity) {
    	  Controller.prototype.render(res, 'pim/page/job/execution.ejs', {
    		  protocol : req.protocol,
    		  host     : req.hostname,
-   		  port     : app.get('port')
+   		  port     : app.get('port'),
+   		  jobCode  : code
 	  });
   });
 	
