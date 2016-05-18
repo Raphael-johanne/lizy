@@ -1,2 +1,3 @@
 .project
 modules/pim/media
+!modules/pim/media/.gitkeep
