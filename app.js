@@ -1,3 +1,10 @@
+/*!
+ * Copyright(c) Raphael Colboc
+ * MIT Licensed
+ * 
+ * @TODO add configuration files per env
+ */
+
 var express = require('express')
       ,http = require('http')
       ,path = require('path')
@@ -32,7 +39,7 @@ app.use(function(req, res, next) {
 
 // database connection
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/nodejs_pim');
+mongoose.connect('mongodb://localhost:27017/lizy');
 
 var cookieParser = require('cookie-parser')
 

@@ -2,7 +2,7 @@
  * Copyright(c) Raphael Colboc
  * MIT Licensed
  */
-azdazd
+
 var events 		= require("events");
 var util 		= require("util");
 var merge 		= require('merge');
