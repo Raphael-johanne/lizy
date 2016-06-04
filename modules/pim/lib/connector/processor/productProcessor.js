@@ -20,7 +20,6 @@ function ProductProcessor(config, jobExecution) {
 	 * @var attributes array will contains all attributes of the family with code and requirement condition
 	 */
 	this.attributes 		=  [];
-	this.row 				= 0;
 	this.familyModel 		= mongoose.model('family');
 	this.attributeModel 	= mongoose.model('attribute');
 }
@@ -66,7 +65,9 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 			  
 			var countAttributes = (typeof family.attributes.length === 'undefined')? 0 : family.attributes.length -1 ;
 			
-			// load attributes
+			 /*
+			  * load attributes
+			  */
 			 if (countAttributes > 0) {
 				var i = 0;
 				family.attributes.forEach(function(attribute, index){
@@ -83,8 +84,6 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 			 }
 		}.bind(this));
 	}
-	
-	this.row++;
 };
 
 module.exports = ProductProcessor;

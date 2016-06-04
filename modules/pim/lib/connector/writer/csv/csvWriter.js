@@ -11,16 +11,14 @@ var csv 		= require("fast-csv");
 var csvStream 	= csv.createWriteStream({headers: true});
   
 function CsvWriter(config, jobExecution) {
-	
-	this.config 		= config;
-	this.jobExecution 	= jobExecution;
+	Writer.call(this, config, jobExecution);
 	
 	if (typeof config !== 'undefined') {
 		writableStream = fs.createWriteStream(this.config.path);
 		csvStream.pipe(writableStream);
 		
 		writableStream.on("finish", function(){
-			console.log("DONE!");
+			this.jobExecution.addNotification("End of profil execution");
 		});
 	}
 }

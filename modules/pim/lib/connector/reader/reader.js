@@ -3,8 +3,8 @@
  * MIT Licensed
  */
 
-var events = require("events");
-var util = require("util");
+var events 	= require("events");
+var util 	= require("util");
 
 function Reader(config, jobExecution) {
 	this.config 		= config;
@@ -14,7 +14,7 @@ function Reader(config, jobExecution) {
 util.inherits(Reader, events.EventEmitter);
 
 Reader.prototype.treat = function(processorCallBack, writerCallback) {
-	
+	console.log('read');
 };
 
 module.exports = Reader;

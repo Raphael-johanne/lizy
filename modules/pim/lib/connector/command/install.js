@@ -2,17 +2,19 @@
  * Copyright(c) Raphael Colboc
  * MIT Licensed
  * 
- * @TODO when configuration fonctionnality will be available, put a parameter to do not authorize multiple install
+ * @TODO when configuration functionnality will be available, put a parameter to do not authorize multiple install
  * of the pim configuration + add a command to install only one new job configuration
  *
  */
 
 var mongoose = require('mongoose');
+/*
+ * @TODO Fix : no more relative path
+ */
 require('../../pim/models/job');
 var Item 	 = mongoose.model('job');
 
 function installCommand(parameters) {
-	
 	this.code = parameters.code;
 }
 
@@ -98,6 +100,63 @@ installCommand.prototype.execute = function() {
 		  }
 	 });
 
+	/**
+	 * Export categories in CSV
+	 */
+	jobs.push({
+		  code 			: "export_category_csv",
+		  name 			: "Export categories in CSV",
+		  type 			: "export",
+		  config : {
+			  path : "modules/pim/export/categories.csv",
+			  connector : {
+				  reader 	: "mongo/reader",
+				  processor : "processor",
+				  writer 	: "csv/csvWriter"
+			  },
+			  fields 		: "code title cdate mdate",
+			  collection 	: "category"
+		  }
+	 });
+	
+	/**
+	 * Export attributes in CSV
+	 */
+	jobs.push({
+		  code 			: "export_attribute_csv",
+		  name 			: "Export attributes in CSV",
+		  type 			: "export",
+		  config : {
+			  path : "modules/pim/export/attributes.csv",
+			  connector : {
+				  reader 	: "mongo/reader",
+				  processor : "processor",
+				  writer 	: "csv/csvWriter"
+			  },
+			  fields 		: "code title cdate mdate",
+			  collection 	: "attribute"
+		  }
+	 });
+	
+	/**
+	 * Export attributes options in CSV
+	 */
+	jobs.push({
+		  code 			: "export_attribute_option_csv",
+		  name 			: "Export attributes options in CSV",
+		  type 			: "export",
+		  config : {
+			  path : "modules/pim/export/attributes_options.csv",
+			  connector : {
+				  reader 	: "mongo/reader",
+				  processor : "processor",
+				  writer 	: "csv/csvWriter"
+			  },
+			  fields 		: "code title cdate mdate",
+			  collection 	: "attribute"
+		  }
+	 });
+	
 	jobs.forEach(function(job, index) {
 		new Item(job).save(function( err, item, count ){
 			  if (err) {

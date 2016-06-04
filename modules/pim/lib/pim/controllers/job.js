@@ -11,6 +11,9 @@ require('../models/job');
 var util 		= require("util");
 var Item     	= mongoose.model('job');
 var merge 		= require('merge');
+/*
+ * @TODO Fix : no more relative path
+ */
 var Step = require('../../connector/step/step');
 var JobExecution = require('../../connector/service/jobExecution');
 
@@ -62,18 +65,18 @@ JobController.controller = function(app, entity) {
   app.get('/'+entity+'/list/:type?/:p?/:limit?', function(req, res) {
 	  /*
 	  var job = {
-			  code 			: "import_product_csv",
-			  name 			: "Import products from CSVs",
-			  type 			: "import",
+			  code 			: "export_category_csv",
+			  name 			: "Export categories in CSV",
+			  type 			: "export",
 			  config : {
-				  path : "modules/pim/import/products",
+				  path : "modules/pim/export/categories.csv",
 				  connector : {
-					  reader : "csv/reader",
-					  processor : "productProcessor",
-					  writer : "mongo/writer"
+					  reader : "mongo/reader",
+					  processor : "processor",
+					  writer : "csv/csvWriter"
 				  },
-				  collection : "product",
-			  	  key : "sku"
+				  fields : "code title cdate mdate",
+				  collection : "category"
 			  }
 	  };
 	  new Item(job).save( function( err, item, count ){

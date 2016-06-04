@@ -6,6 +6,9 @@ var Controller 			= require("./controller.js");
 var mongoose 			= require('mongoose');
 var forms 				= require('../forms/attribute');
 var List 				= require('../services/list');
+/*
+ * @TODO Fix : no more relative path
+ */
 var attributeService 	= require('../../connector/service/attribute');
 require('../models/attribute');
 var util 				= require("util");

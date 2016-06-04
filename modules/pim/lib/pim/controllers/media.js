@@ -3,6 +3,9 @@
  * MIT Licensed
  */
 var Controller 		= require("./controller.js");
+/*
+ * @TODO Fix : no more relative path
+ */
 var mediaService 	= require("../../connector/service/media.js");
 var util 			= require("util");
 var fs 				= require('fs');

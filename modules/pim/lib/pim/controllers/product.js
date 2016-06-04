@@ -3,7 +3,9 @@
  * MIT Licensed
  */
 require('../models/product');
-
+/*
+ * @TODO Fix : no more relative path
+ */
 var Controller 		= require("./controller.js");
 var mongoose 		= require('mongoose');
 var forms 			= require('../forms/product');

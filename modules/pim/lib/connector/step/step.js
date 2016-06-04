@@ -19,8 +19,9 @@ function Step(config)
 		this.reader = new Reader(config, jobExecution);
 		
 		if (typeof config.connector.processor !== 'undefined') {
-			var Processor  = require('../processor/' + config.connector.processor);
+			var Processor  = require('../processor/'+ config.connector.processor );
 			this.processor = new Processor(config, jobExecution);
+			console.log(this.processor); 
 		}
 		
 		if (typeof config.connector.writer !== 'undefined') {
