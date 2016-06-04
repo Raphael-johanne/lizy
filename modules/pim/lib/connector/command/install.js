@@ -127,7 +127,7 @@ installCommand.prototype.execute = function() {
 		  name 			: "Export attributes in CSV",
 		  type 			: "export",
 		  config : {
-			  path : "modules/pim/export/attributes.csv",
+			  path : "modules/pim/export/attributes",
 			  connector : {
 				  reader 	: "mongo/reader",
 				  processor : "processor",
