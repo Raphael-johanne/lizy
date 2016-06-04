@@ -19,7 +19,7 @@
 		<%	items.forEach(function(el, index) { %>
 				<tr>
 					<% Object.keys(fields).forEach(function(key){ %>
-			  			<td><%- (key.indexOf("normalizedData" != -1 )) ? "" : el[key] %></td>
+			  			<td><%- el[key] %></td>
 					<% });  %>
 					<td>
 						<a onclick="return confirm('Do you really want to delete this item ?')" href="/<%= entity %>/remove/<%= el._id %>">Remove</a>
