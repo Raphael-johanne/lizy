@@ -10,21 +10,19 @@ var COMMAND_EXECUTOR_POSITION		= 2;
 var DEFAULT_COMMAND_DELIMITER		= ":";
 var DEFAULT_PARAMETER_DELIMITER     = "=";
 
-//database connection
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/lizy');
+var configService = require('/modules/pim/lib/core/services/config');
+
 
 /**
  * add console fonctionnality to the pim
  * 
  * Example :
  * 
- * nodejs console.js connector:job code=import_product_csv
+ * nodejs console.js connector:job env=dev code=import_product_csv 
  * 
  * ----------------- moduleName:commandFileName paramField1=paramValue1 ...
  */
 function Console(){
-	
 	this.parameters = this.formatParameters(process.argv);
 }
 
@@ -37,7 +35,14 @@ Console.prototype.execute = function() {
 		console.log('Module is not correct');
 	} else if (typeof this.parameters.command == "undefined") {
 		console.log('Command is not correct');
+	} else if (typeof this.parameters.env == "undefined") {
+		console.log('Env is not correct');
 	} else {
+		var config = configService.getConfigByEnv(this.parameters.env);
+		
+		//database connection
+		var mongoose = require('mongoose');
+		mongoose.connect(config.mongodb.protocol +'://' + config.mongodb.host  + ':' config.mongodb.port +'/' + config.mongodb.database);
 		
 		var Command = require(__dirname + '/modules/pim/lib/' + this.parameters.module + '/command/' + this.parameters.command);
 		var command = new Command(this.parameters);
