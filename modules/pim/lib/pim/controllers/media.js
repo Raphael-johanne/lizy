@@ -59,7 +59,13 @@ MediaController.controller = function(app, entity) {
 		 * factory is necessary.
 		 */
 		mkdirp(eanMediaPath , function(err) { 
-			fs.rename(req.file.path, fullMediaPath, function (){
+			if (err) {
+			      throw err;
+			    }
+			fs.rename(req.file.path, fullMediaPath, function (err){
+				if (err) {
+				      throw err;
+				    }
 	    		res.setHeader('Content-Type', 'application/json');
 	            res.send(JSON.stringify({fullMediaPath:fullMediaPath}));
 	    		}

@@ -11,7 +11,7 @@ var moment 			= require('moment');
 /*
  * @TODO Fix : no more relative path
  */
-var coreGlobal 		= require('../../core/services/global.js');
+var coreGlobal 		= require('../../core/services/config.js');
 
 function Processor(config, jobExecution) {
 	this.config 		= config;
