@@ -14,7 +14,7 @@ var express 			= require('express')
       ,path 			= require('path')
       ,session 			= require('express-session')
       ,fs 				= require('fs')
-      ,configService 	= require('./modules/pim/lib/core/services/global.js');
+      ,configService 	= require('./modules/pim/lib/core/services/config.js');
 
 app = express();
 

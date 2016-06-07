@@ -3,6 +3,15 @@
  * MIT Licensed
  */
 
+var express 			= require('express')
+      ,http 			= require('http')
+      ,path 			= require('path')
+      ,session 			= require('express-session')
+      ,fs 				= require('fs')
+      ,configService 	= require('./modules/pim/lib/core/services/config.js');
+
+app = express();
+app.set('root', __dirname);
 /**
  * file executor to execute in the command line position
  */
@@ -10,8 +19,7 @@ var COMMAND_EXECUTOR_POSITION		= 2;
 var DEFAULT_COMMAND_DELIMITER		= ":";
 var DEFAULT_PARAMETER_DELIMITER     = "=";
 
-var configService = require('/modules/pim/lib/core/services/config');
-
+var configService = require('./modules/pim/lib/core/services/config');
 
 /**
  * add console fonctionnality to the pim
@@ -42,7 +50,7 @@ Console.prototype.execute = function() {
 		
 		//database connection
 		var mongoose = require('mongoose');
-		mongoose.connect(config.mongodb.protocol +'://' + config.mongodb.host  + ':' config.mongodb.port +'/' + config.mongodb.database);
+		mongoose.connect(config.mongodb.protocol +'://' + config.mongodb.host  + ':' + config.mongodb.port +'/' + config.mongodb.database);
 		
 		var Command = require(__dirname + '/modules/pim/lib/' + this.parameters.module + '/command/' + this.parameters.command);
 		var command = new Command(this.parameters);
