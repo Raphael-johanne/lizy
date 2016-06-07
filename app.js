@@ -37,7 +37,24 @@ if (config === false) {
 	console.log('Fatal error: the pim configuration is not correct, please refer to your env and configuration file in pim core module.');
 } else {
 	app.set('port', config.application.port);
-	app.use(session({ secret: 'keyboard cat', cookie: { maxAge: config.application.cookieMaxAge }}));
+	app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 * 60 * 24 }}));
+	
+	//load modules
+	var i18n = require('i18n-2');
+
+	// Attach the i18n property to the express request object
+	// And attach helper methods for use in templates
+	i18n.expressBind(app, {
+	    // setup some locales - other locales default to en silently
+	    locales: ['en', 'de', 'fr'],
+	    // change the cookie name from 'lang' to 'locale'
+	    cookieName: 'locale'
+	});
+
+	app.use(function(req, res, next) {
+	    req.i18n.setLocaleFromCookie();
+	    next();
+	});
 	
 	// database connection
 	mongoose.connect(config.mongodb.protocol +'://' + config.mongodb.host  + ':' + config.mongodb.port + '/' + config.mongodb.database);
