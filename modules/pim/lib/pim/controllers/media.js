@@ -60,12 +60,12 @@ MediaController.controller = function(app, entity) {
 		 */
 		mkdirp(eanMediaPath , function(err) { 
 			if (err) {
-			      throw err;
-			    }
+				throw err;
+			}
 			fs.rename(req.file.path, fullMediaPath, function (err){
 				if (err) {
-				      throw err;
-				    }
+					throw err;
+				}
 	    		res.setHeader('Content-Type', 'application/json');
 	            res.send(JSON.stringify({fullMediaPath:fullMediaPath}));
 	    		}
