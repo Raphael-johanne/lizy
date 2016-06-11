@@ -36,6 +36,7 @@ ProductController.controller = function(app, entity) {
 	  list.getList(Item, entity, {'sku':'Code', 'normalizedData.title':'Title'}, {'sku':'Code', 'normalizedData.title':'Title'}, 
 			  req, 
 			  function(err, docs, fields, filtersFormHtml, paginationHtml) {
+		  		
 		  
 				  if (err) return res.status(404).render('page/404.ejs');
 				  

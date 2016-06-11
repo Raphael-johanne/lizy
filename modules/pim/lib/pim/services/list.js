@@ -2,11 +2,12 @@
  * Copyright(c) Raphael Colboc
  * MIT Licensed
  */
-var events 	= require("events");
-var util 	= require("util");
-var forms 	= require('../forms/list/filter');
-var widgets = require('forms').widgets;
-var paginate = require('express-paginate');
+var events 			= require("events");
+var util 			= require("util");
+var forms 			= require('../forms/list/filter');
+var widgets 		= require('forms').widgets;
+var paginate 		= require('express-paginate');
+var staticDoc	 	= null;
 
 function List() {}
 
@@ -18,15 +19,11 @@ util.inherits(List, events.EventEmitter);
 List.prototype.getList = function(model, entity, fields, fieldsToFilter, req, callback) {
 	
 	List.getFilters(req, entity, fieldsToFilter, function(err, filtersFormHtml, filters){
-		if (err === null) {
-			/**
-			 * @TODO
-			 */	
-		}
 		var conditions 	= List.getConditionsByFilters(filters);
 	
 		List.getPagination(model, req, conditions, entity, function(err, paginationHtml, page, limit){
 			model.find(conditions, fields, function(err, docs) {
+				docs = List.getFormatedDocs(docs);
 				callback(err, docs, fields, filtersFormHtml, paginationHtml);
 			}).skip(limit * (page - 1)).limit(limit); 
 		})
@@ -34,12 +31,65 @@ List.prototype.getList = function(model, entity, fields, fieldsToFilter, req, ca
 };
 
 /**
+ * get formated docs
+ */
+List.getFormatedDocs = function (docs) {
+	var formatedDocs 	= [];
+	var docIndex	= 0;
+	
+	docs.forEach(function(doc, index) {
+		formatedDocs[docIndex] = List.getRecursiveBuildValue(doc._doc, null);
+		formatedDocs[docIndex]._id = doc._id;
+		docIndex++;
+	});
+	
+	return formatedDocs;
+}
+
+/**
+ * build formated doc
+ */
+List.getRecursiveBuildValue = function (doc, concatanedKey) {
+	
+	var staticDoc = List.getStaticDoc();
+	
+	Object.keys(doc).forEach(function(key) {
+		var value = doc[key];
+		
+		if (concatanedKey === null) {
+			concatanedKey = key;
+		} else {
+			concatanedKey += '_'+key;
+		}
+		
+		if (value instanceof Object) {
+			staticDoc[concatanedKey] = List.getRecursiveBuildValue(value, concatanedKey);
+		} else {
+			staticDoc[concatanedKey] = value;
+			concatanedKey = null;
+		}
+	});
+	
+	return staticDoc;
+}
+
+/**
+ * static doc to use for recursively function
+ */
+List.getStaticDoc = function() {
+    if (staticDoc === null ) {
+    	staticDoc = {};
+    }
+    return staticDoc;
+}
+
+/**
  * get filters for current list
  */
 List.getPagination = function(model, req, conditions, entity, callback) {
 	
-	var limit	= (req.params.limit)?req.params.limit:10;
-	var page	= (req.params.p)?req.params.p:1;
+	var limit	= (req.params.limit)	? req.params.limit :10;
+	var page	= (req.params.p)		? req.params.p     :1;
 	
 	model.find(conditions, '_id').count(function(err, count) {
 		

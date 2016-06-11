@@ -18,7 +18,9 @@
       <tbody>
 		<%	items.forEach(function(el, index) { %>
 				<tr>
-					<% Object.keys(fields).forEach(function(key){ %>
+					<% Object.keys(fields).forEach(function(key){ 
+					key = key.replace(".", "_");
+					 %>
 			  			<td><%- el[key] %></td>
 					<% });  %>
 					<td>
