@@ -15,16 +15,24 @@ function Step(config)
 	
 	this.init = function(config, jobExecution)
 	{
+		/*
+		 * @TODO Fix : no more relative path
+		 */
 		var Reader  = require('../reader/' + config.connector.reader);
 		this.reader = new Reader(config, jobExecution);
 		
 		if (typeof config.connector.processor !== 'undefined') {
-			var Processor  = require('../processor/'+ config.connector.processor );
+			/*
+			 * @TODO Fix : no more relative path
+			 */
+			var Processor  = require('../processor/'+ config.connector.processor);
 			this.processor = new Processor(config, jobExecution);
-			console.log(this.processor); 
 		}
 		
 		if (typeof config.connector.writer !== 'undefined') {
+			/*
+			 * @TODO Fix : no more relative path
+			 */
 			var Writer  = require('../writer/' + config.connector.writer);
 			this.writer = new Writer(config, jobExecution);
 		}

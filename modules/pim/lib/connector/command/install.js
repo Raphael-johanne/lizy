@@ -115,7 +115,7 @@ installCommand.prototype.execute = function() {
 				  writer 	: "csv/csvWriter"
 			  },
 			  fields 		: "code title cdate mdate",
-			  collection 	: "category"
+			  collection 	: "category"	
 		  }
 	 });
 	

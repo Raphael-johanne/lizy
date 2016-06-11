@@ -48,9 +48,11 @@ Processor.prototype.treat = function(item, last, callBack) {
 			} else {
 				item.cdate = item.mdate;
 			}
+			
 			callBack(item, last);
 		})
 	} else {
+		
 		/**
 		 * @see callBack
 		 */

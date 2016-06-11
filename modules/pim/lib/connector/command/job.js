@@ -11,7 +11,6 @@ var Step = require('../step/step');
 
 /**
  * @TODO do not use model declaration here, temporary test
- * 
  */
 require('../../pim/models/product');
 require('../../pim/models/family');
