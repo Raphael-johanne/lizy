@@ -7,5 +7,6 @@
 	"Families": "Families",
 	"Jobs": "Jobs",
 	"Import": "Import",
-	"Export": "Export"
+	"Export": "Export",
+	"Locales": "Locales"
 }

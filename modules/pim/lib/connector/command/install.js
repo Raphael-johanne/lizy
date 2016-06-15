@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
  * @TODO Fix : no more relative path
  */
 require('../../pim/models/job');
-var Item 	 = mongoose.model('job');
+var ItemJob 	 = mongoose.model('job');
 
 function installCommand(parameters) {
 	this.code = parameters.code;
@@ -158,14 +158,39 @@ installCommand.prototype.execute = function() {
 	 });
 	
 	jobs.forEach(function(job, index) {
-		new Item(job).save(function( err, item, count ){
+		new ItemJob(job).save(function( err, item, count ){
 			  if (err) {
 				  console.log(err);
 			  } else {
 				  console.log('Job ' + job.code + " has been created");
 			  }
 		 });
-	})
+	});
+	
+	/**
+	 * create some locales
+	 */
+	var locales = [];
+	
+	locales.push({
+		  code 			: "fr_FR",
+		  name 			: "French",
+	 });
+	
+	locales.push({
+		  code 			: "en_EN",
+		  name 			: "English",
+	 });
+	
+	locales.forEach(function(locale, index) {
+		new ItemLocale(locale).save(function( err, item, count ){
+			  if (err) {
+				  console.log(err);
+			  } else {
+				  console.log('Locale ' + locale.code + " has been created");
+			  }
+		 });
+	});
 }
 
 module.exports = installCommand;
