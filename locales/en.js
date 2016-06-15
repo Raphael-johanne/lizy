@@ -8,5 +8,6 @@
 	"Jobs": "Jobs",
 	"Import": "Import",
 	"Export": "Export",
-	"Locales": "Locales"
+	"Locales": "Locales",
+	"Channels": "Channels"
 }

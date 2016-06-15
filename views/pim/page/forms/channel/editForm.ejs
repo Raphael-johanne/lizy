@@ -1,0 +1,70 @@
+<form class="row col-lg-12" action="<%- action %>" method="POST">
+
+	<div class="row">
+		<div class="btn-group pull-right" role="group">
+		  <a class="btn btn-default" href="javascript:history.go(-1)">Back	</a>
+		  <input class="btn btn-default" type="submit" />
+		</div>
+	</div>
+	
+	<ul class="nav nav-tabs">
+	  <li class="active"><a data-toggle="tab" href="#general">General</a></li>
+	  <li><a data-toggle="tab" href="#values">Locales</a></li>
+	</ul>
+
+	<div class="tab-content">
+	  <div id="general" class="tab-pane fade in active">
+	  		<%- form.fields.code.toHTML() %>
+	    	<%- form.fields.name.toHTML() %>
+	    	<%- form.fields.status.toHTML() %>
+	  </div>
+	  <div id="values" class="tab-pane fade">
+	  		<div class="btn-group">
+			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			    Add locale
+			    <span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu">
+			   	<li>
+			   	<label for="channel-add-locales">Code: </label>
+  				<input id="channel-add-locale" />
+			   	
+			   	</li>
+			  </ul>
+			</div>
+			
+			<table class="table">
+				<thead>
+				<tr>
+				  <th>Locale</th>
+				</tr>
+				</thead>
+					<tbody id="channel-locales">&nbsp;</tbody>
+				</table>
+			
+	  </div>
+	  
+	</div>
+	
+	
+	<script>
+	
+		var channel = new ChannelForm({});
+		
+		<% if (locales !== null) {
+			Object.keys(locales).forEach(function(item, index){ %>
+			
+			channel.addElement(
+					"<%= locales[item]._id %>", 
+					"<%= locales[item].name %>",
+					"<%= index %>"
+				);
+			
+			<% }); %>
+		<% } %>
+		
+
+	</script>
+	
+</form>
+

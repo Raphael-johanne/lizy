@@ -10,7 +10,7 @@ var List 		= require('../services/list');
 require('../models/family');
 var util 		= require("util");
 var Item     	= mongoose.model('family');
-var Attribute     	= mongoose.model('attribute');
+var Attribute   = mongoose.model('attribute');
 var merge 		= require('merge');
 
 function FamilyController() {
