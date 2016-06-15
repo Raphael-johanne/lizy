@@ -4,6 +4,6 @@ modules/pim/media
 !modules/pim/export/.gitkeep
 !modules/pim/import/.gitkeep
 modules/pim/export
+!modules/pim/import/families/.gitkeep
+!modules/pim/import/products/.gitkeep
 modules/pim/import
-
-
