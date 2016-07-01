@@ -8,7 +8,6 @@ var forms 			= require('../forms/list/filter');
 var format 			= require('../../core/services/format');
 var widgets 		= require('forms').widgets;
 var paginate 		= require('express-paginate');
-var staticDoc	 	=[];
 
 function List() {}
 
