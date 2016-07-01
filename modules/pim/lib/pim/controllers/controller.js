@@ -7,8 +7,11 @@ var templateData = {};
 var events = require("events");
 var util = require("util");
 var ORIGIN_FILE_TYPE = 'origin';
+var debug = require('../../core/services/debug.js');
 
-function Controller() {}
+function Controller() {
+	this.debug = debug;
+}
 
 util.inherits(Controller, events.EventEmitter);
 

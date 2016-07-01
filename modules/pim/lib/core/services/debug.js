@@ -3,6 +3,8 @@
  * MIT Licensed
  */
 
+var debugAvailable = true;
+
 module.exports = {
     /**
      * Dump to use forshell treatment
@@ -10,6 +12,11 @@ module.exports = {
      * @return string
      */
 	dump : function(data) {
+		
+		if (debugAvailable === false) {
+			return null;
+		}
+		
 		if (Array.isArray(data)) {
 			log = data;
 		} else {

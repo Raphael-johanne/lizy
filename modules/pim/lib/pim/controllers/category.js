@@ -7,11 +7,12 @@ var Controller 	= require("./controller.js");
 var mongoose 	= require('mongoose');
 var forms 		= require('../forms/category');
 var List 		= require('../services/list');
-require('../models/category');
+require('../models/category.js');
 var util 		= require("util");
 var Item     	= mongoose.model('category');
 var merge 		= require('merge');
 var Format 		= require('../../core/services/format');
+
 function CategoryController() {
 	Controller.call(this);
 }

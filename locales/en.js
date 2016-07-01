@@ -9,5 +9,8 @@
 	"Import": "Import",
 	"Export": "Export",
 	"Locales": "Locales",
-	"Channels": "Channels"
+	"Channels": "Channels",
+	"Users": "Users",
+	"My account": "My account",
+	"Logout": "Logout"
 }

@@ -14,7 +14,8 @@ var express 			= require('express')
       ,path 			= require('path')
       ,session 			= require('express-session')
       ,fs 				= require('fs')
-      ,configService 	= require('./modules/pim/lib/core/services/config.js');
+      ,configService 	= require('./modules/pim/lib/core/services/config.js')
+      ,debug 			= require('./modules/pim/lib/core/services/debug.js');
 
 app = express();
 
@@ -38,6 +39,8 @@ if (config === false) {
 } else {
 	app.set('port', config.application.port);
 	app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 * 60 * 24 }}));
+	
+	require('./modules/pim/lib/pim/services/passport.js');
 	
 	//load modules
 	var i18n = require('i18n-2');
@@ -68,7 +71,7 @@ if (config === false) {
 	      
 	      app._router.stack.forEach(function(r){
 	    	  if (r.route && r.route.path){
-	    	  //  console.log(r.route.path)
+	    	    //console.log(r.route.path)
 	    	  }
 	    	})
 	  }

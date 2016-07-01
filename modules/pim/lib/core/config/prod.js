@@ -6,6 +6,7 @@
 var config 			= {};
 config.application 	= {};
 config.mongodb 		= {};
+config.secretKey 	= "please_replace_me";
 
 /**
  * Application configuraion
