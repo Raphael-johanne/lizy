@@ -8,7 +8,6 @@ var forms 			= require('../forms/list/filter');
 var format 			= require('../../core/services/format');
 var widgets 		= require('forms').widgets;
 var paginate 		= require('express-paginate');
-var staticDoc	 	=[];
 
 function List() {}
 
@@ -36,14 +35,14 @@ List.prototype.getList = function(model, entity, fields, fieldsToFilter, req, ca
  */
 List.getFormatedDocs = function (docs) {
 	var formatedDocs 	= [];
-	var docIndex	= 0;
-	var Format = new format();
+	var docIndex		= 0;
+	var Format 			= new format();
 	docs.forEach(function(doc, index) {
 		formatedDocs[docIndex] = Format.objectToUnderscore(doc._doc);
 		formatedDocs[docIndex]._id = doc._id;
 		docIndex++;
 	});
-	debug.dump(formatedDocs);
+
 	return formatedDocs;
 }
 
