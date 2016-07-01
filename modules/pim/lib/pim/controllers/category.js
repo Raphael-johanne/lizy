@@ -11,7 +11,7 @@ require('../models/category');
 var util 		= require("util");
 var Item     	= mongoose.model('category');
 var merge 		= require('merge');
-
+var Format 		= require('../../core/services/format');
 function CategoryController() {
 	Controller.call(this);
 }
@@ -24,6 +24,10 @@ CategoryController.controller = function(app, entity) {
   * List route
   */
   app.get('/'+entity+'/list/:p?/:limit?', function(req, res) {
+	  
+	  var format = new Format();
+	  format.objectToUnderscore({"title":{"commerce":{"fr":"titre en francais"}}});
+	  
 	  var list = new List();
 	  list.getList(Item, entity, {'code':'Code', 'title':'Title'}, {'code':'Code', 'title':'Title'}, req, function(err, docs, fields, filtersFormHtml, paginationHtml) {
 		  

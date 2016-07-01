@@ -118,7 +118,7 @@ ProductController.controller = function(app, entity) {
 					  Attribute.findById(attribute._id, function(err, attributeDoc) {
 						  var field = {
 								  "code"     : attributeDoc.code, 
-								  "required" : attribute.required,
+								  "required" : false,
 								  "label"    : attributeDoc.title,
 								  "type"	 : attributeDoc.type
 							  };

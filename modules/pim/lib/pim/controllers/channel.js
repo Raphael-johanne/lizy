@@ -110,7 +110,7 @@ ChannelController.controller = function(app, entity) {
 					  }
 				  });
 			  })
-		  } e/lse {
+		  } else {
 			  Controller.prototype.emit('locales_loaded', null, form);
 		  }
 		});

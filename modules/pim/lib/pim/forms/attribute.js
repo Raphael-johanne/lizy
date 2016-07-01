@@ -31,9 +31,7 @@ complementaryFieldsFunction['selectFields'] = function(data){
 		
 		 var values = {name:'values', content:{}};
 		 
-		 var keys = Object.keys(data.values);
-		 
-		 keys.forEach(function(key, index){
+		 Object.keys(data.values).forEach(function(key, index){
 			 values.content[key] = modelOption
 		 });
 		 formFields.push(values);
