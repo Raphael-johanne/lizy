@@ -11,6 +11,7 @@ GENERALITY
 
 1. PIM : Product Information Management
 2. Job : Provide import/export of data functionnality
+3. Shell : Command line to execute in a terminal (be carefull of rights !)
 
 INSTALLATION
 ------------
@@ -20,21 +21,21 @@ INSTALLATION
 3. Download LIZY PIM sources from GIT : 
 `git clone https://github.com/Raphael-johanne/lizy`
 Or get sources directly.
-4. Start nodejs server from the project directory : `nodejs app.js`
+4. Start nodejs server from the project directory with this shell command: `nodejs app.js`
 
 If you go to `http://localhost:3000/`, you must see the LIZY login page.
 
 PREPARATION 
 ------------
 
-1. Create a user
+Create a user with this shell command
 
 `nodejs console.js pim:user username="YOUR_USERNAME_TO_LOG_WITH" email="YOUR_EMAIL" password="YOUR_PASSWORD_TO_LOG_WITH" env="YOUR_ENV"`
 
 `env` can be 'dev', 'preprod' or 'prod'.
 `password` is of course encrypted in LIZY for security reason.
 
-2. Install default Import/Export Job
+Install default Import/Export Job with this shell command
 
 `nodejs console.js connector:install`
 
