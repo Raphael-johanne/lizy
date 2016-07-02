@@ -9,8 +9,8 @@ A little PIM really fast in I/O treatment. Just one channel for the moment, but 
 GENERALITY
 -----------
 
-PIM : Product Information Management
-Job : Provide import/export of data
+1. PIM : Product Information Management
+2. Job : Provide import/export of data functionnality
 
 INSTALLATION
 ------------
@@ -27,14 +27,14 @@ If you go to `http://localhost:3000/`, you must see the LIZY login page.
 PREPARATION 
 ------------
 
-Create a user
+1. Create a user
 
 `nodejs console.js pim:user username="YOUR_USERNAME_TO_LOG_WITH" email="YOUR_EMAIL" password="YOUR_PASSWORD_TO_LOG_WITH" env="YOUR_ENV"`
 
 `env` can be 'dev', 'preprod' or 'prod'.
 `password` is of course encrypted in LIZY for security reason.
 
-Install default Import/Export Job
+2. Install default Import/Export Job
 
 `nodejs console.js connector:install`
 
