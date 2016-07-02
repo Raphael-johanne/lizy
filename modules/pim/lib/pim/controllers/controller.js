@@ -27,6 +27,14 @@ Controller.prototype.renderPopin = function(res, template, data) {
 	})
 };
 
+//As with any middleware it is quintessential to call next()
+//if the user is authenticated
+Controller.prototype.isAuthenticated = function (req, res, next) {
+if (req.isAuthenticated())
+return next();
+res.redirect('/');
+}
+
 Controller.prototype.addFileToHead = function(path, type) {
 	
 	if (typeof templateData.head === 'undefined') {

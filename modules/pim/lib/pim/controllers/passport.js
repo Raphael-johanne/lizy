@@ -2,8 +2,8 @@
  * Copyright(c) Raphael Colboc
  * MIT Licensed
  */
-var Controller 			= require("./controller.js");
-var util = require("util");
+var Controller 	= require("./controller.js");
+var util 		= require("util");
 
 function PassportController() {
 	Controller.call(this);
@@ -15,7 +15,7 @@ PassportController.controller = function(app, entity) {
 
 	  /* GET login page. */
 	  app.get('/', function(req, res) {
-		  res.render('pim/page/passport/login.ejs');
+		  res.render('pim/page/passport/login.ejs', {templateData : {}, message: req.flash('message')});
 	  });
 	 
 	  /* Handle Login POST */
@@ -24,18 +24,11 @@ PassportController.controller = function(app, entity) {
 	    failureRedirect: '/',
 	    failureFlash : true 
 	  }));
-	 
-	  /* GET Registration Page */
-	  app.get('/signup', function(req, res){
-	    res.render('register',{message: req.flash('message')});
+	  
+	  app.get('/signout', function(req, res) {
+		  req.logout();
+		  res.redirect('/');
 	  });
-	 
-	  /* Handle Registration POST */
-	  app.post('/signup', app.get('passport').authenticate('signup', {
-	    successRedirect: '/dashboard/index',
-	    failureRedirect: '/signup',
-	    failureFlash : true 
-	  }));
 }
 
 module.exports = PassportController;

@@ -26,7 +26,7 @@ AttributeController.controller = function(app, entity) {
   /**
   * List route
   */
-  app.get('/'+entity+'/list/:p?/:limit?', function(req, res) {
+  app.get('/'+entity+'/list/:p?/:limit?', Controller.prototype.isAuthenticated,function(req, res) {
 	  var list = new List();
 	  
 	  Controller.prototype.addFileToHead('list/attribute/list.js', 'js');
@@ -50,7 +50,7 @@ AttributeController.controller = function(app, entity) {
   /**
    * Choice attribute type route
    */
-   app.get('/'+entity+'/type/choices', function(req, res) {
+   app.get('/'+entity+'/type/choices', Controller.prototype.isAuthenticated, function(req, res) {
 	   
 	   var choices = attributeService.getAttributeTypeCodes();
 	   Controller.prototype.renderPopin(res, 'pim/page/attribute/choice.ejs', {
@@ -62,7 +62,7 @@ AttributeController.controller = function(app, entity) {
   /**
    * List route
    */
-   app.post('/'+entity+'/list', function(req, res) {
+   app.post('/'+entity+'/list', Controller.prototype.isAuthenticated, function(req, res) {
 	   req.session[entity + '_filters_list'] = req.body;
 	   res.redirect('/'+entity+'/list');
    });
@@ -70,7 +70,7 @@ AttributeController.controller = function(app, entity) {
   /**
    * Create route
    */
-   app.get('/'+entity+'/create/:type', function(req, res) {
+   app.get('/'+entity+'/create/:type', Controller.prototype.isAuthenticated, function(req, res) {
 	  
 	   var type = req.params.type;
 	   
@@ -93,7 +93,7 @@ AttributeController.controller = function(app, entity) {
   /**
   * Edit route
   */
-  app.get('/'+entity+'/edit/:id', function(req, res) {
+  app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
 	
 	  var id 	= req.params.id;
 	  
@@ -115,7 +115,7 @@ AttributeController.controller = function(app, entity) {
   /**
    * Remove route
    */
-   app.get('/'+entity+'/remove/:id', function(req, res) {
+   app.get('/'+entity+'/remove/:id', Controller.prototype.isAuthenticated, function(req, res) {
  	
  	  var id 	= req.params.id;
  	  
@@ -133,7 +133,7 @@ AttributeController.controller = function(app, entity) {
    /**
     * Get attributes in JSON for family add attribute fonctionnality
     */
-    app.get('/'+entity+'/family/attributes', function(req, res) {
+    app.get('/'+entity+'/family/attributes', Controller.prototype.isAuthenticated, function(req, res) {
   	
     	
   	  	var alreadyUsedAttributeIds 	= req.params.already_used_attribute_ids;
@@ -155,7 +155,7 @@ AttributeController.controller = function(app, entity) {
   /**
   * Save route
   */
-  app.post('/'+entity+'/save', function(req, res) {
+  app.post('/'+entity+'/save', Controller.prototype.isAuthenticated, function(req, res) {
  	 
 	  var type = req.body.type;
 	   
@@ -189,7 +189,7 @@ AttributeController.controller = function(app, entity) {
   /**
    * Update route
    */
-   app.post('/'+entity+'/update/:id', function(req, res) {
+   app.post('/'+entity+'/update/:id', Controller.prototype.isAuthenticated, function(req, res) {
   	 
 	   var type = req.body.type;
 	   

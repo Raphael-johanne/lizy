@@ -24,7 +24,7 @@ FamilyController.controller = function(app, entity) {
   /**
   * List route
   */
-  app.get('/'+entity+'/list/:p?/:limit?', function(req, res) {
+  app.get('/'+entity+'/list/:p?/:limit?', Controller.prototype.isAuthenticated, function(req, res) {
 	  var list = new List();
 	  
 	  Controller.prototype.addFileToHead('list/family/list.js', 'js');
@@ -48,7 +48,7 @@ FamilyController.controller = function(app, entity) {
   /**
    * List route
    */
-   app.post('/'+entity+'/list', function(req, res) {
+   app.post('/'+entity+'/list', Controller.prototype.isAuthenticated, function(req, res) {
 	   req.session[entity + '_filters_list'] = req.body;
 	   res.redirect('/'+entity+'/list');
    });
@@ -71,7 +71,7 @@ FamilyController.controller = function(app, entity) {
   /**
   * Edit family route
   */
-  app.get('/'+entity+'/edit/:id', function(req, res) {
+  app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
 	
 	  var id = req.params.id;
 	  
@@ -117,7 +117,7 @@ FamilyController.controller = function(app, entity) {
   /**
    * Remove route
    */
-   app.get('/'+entity+'/remove/:id', function(req, res) {
+   app.get('/'+entity+'/remove/:id', Controller.prototype.isAuthenticated, function(req, res) {
  	
  	  var id 	= req.params.id;
  	  
@@ -135,7 +135,7 @@ FamilyController.controller = function(app, entity) {
   /**
   * Save route
   */
-  app.post('/'+entity+'/save', function(req, res) {
+  app.post('/'+entity+'/save', Controller.prototype.isAuthenticated, function(req, res) {
  	 
 	  var formInstance = new forms();
 	  var form = formInstance.getCreate();
@@ -158,7 +158,7 @@ FamilyController.controller = function(app, entity) {
   /**
    * Save route
    */
-   app.post('/'+entity+'/update/:id', function(req, res) {
+   app.post('/'+entity+'/update/:id', Controller.prototype.isAuthenticated, function(req, res) {
   	 
 	   var formInstance = new forms();
 	   var form = formInstance.getEdit();
@@ -196,7 +196,7 @@ FamilyController.controller = function(app, entity) {
    /**
     * Get attributes in JSON for family add attribute fonctionnality
     */
-    app.get('/'+entity+'/product/families', function(req, res) {
+    app.get('/'+entity+'/product/families', Controller.prototype.isAuthenticated, function(req, res) {
   	
   	  	var startWith = req.query.name_startsWith;
   	  	

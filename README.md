@@ -1,10 +1,16 @@
 @author RAPHAEL COLBOC
-@package LIZY 1.0.0
+@package LIZY 1.0.1
 
 DESCRIPTION
 -----------
 
 A little PIM really fast in I/O treatment. Just one channel for the moment, but more will come soon.
+
+GENERALITY
+-----------
+
+PIM : Product Information Management
+Job : Provide import/export of data
 
 INSTALLATION
 ------------
@@ -15,17 +21,31 @@ INSTALLATION
 `git clone https://github.com/Raphael-johanne/lizy`
 Or get sources directly.
 4. Start nodejs server from the project directory : `nodejs app.js`
-5. Run LIZY PIM install : `nodejs console.js connector:install`
+
+If you go to `http://localhost:3000/`, you must see the LIZY login page.
+
+PREPARATION 
+------------
+
+Create a user
+
+`nodejs console.js pim:user username="YOUR_USERNAME_TO_LOG_WITH" email="YOUR_EMAIL" password="YOUR_PASSWORD_TO_LOG_WITH" env="YOUR_ENV"`
+
+`env` can be 'dev', 'preprod' or 'prod'.
+`password` is of course encrypted in LIZY for security reason.
+
+Install default Import/Export Job
+
+`nodejs console.js connector:install`
 
 TEST
 ------------
 
-By default, LIZY PIM running on port 3000, so you can access to it by this address : `http://localhost:3000/dashboard/index`
+By default, LIZY running on port 3000, so you can access to it by this address : `http://localhost:3000/`
 
-If you want to run LIZY PIM on different port, you can override `app.js` or waiting for config module (WIP).
+If you want to run LIZY on different port, you can override core module, in config folder, depend on your env.
 
 That's it, enjoy :)
 
-PS : "TypeError: Cannot read property 'Kerberos' of undefined at Object.<anony..." is not important
 
 

@@ -29,7 +29,7 @@ passport.use('login', new LocalStrategy({
           return done(err);
         // Username does not exist, log error & redirect back
         if (!user){
-          console.log('User Not Found with username '+username);
+          console.log('User Not Found with username ' + username);
           return done(null, false, 
                 req.flash('message', 'User Not found.'));                 
         }
@@ -53,7 +53,6 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
-
 
 //Generates hash using bCrypt
 var createHash = function(password){

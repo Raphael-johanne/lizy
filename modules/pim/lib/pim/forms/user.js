@@ -19,7 +19,7 @@ util.inherits(CategoryForm, Form);
 CategoryForm.prototype.getEdit = function(data) {
 
 	 var form = forms.create({
-		 username: fields.string(
+		 login : fields.string(
 				 { 
 					 required: true, 
 					 errorAfterField: true,

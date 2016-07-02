@@ -28,7 +28,7 @@ ProductController.controller = function(app, entity) {
   /**
   * List route
   */
-  app.get('/'+entity+'/list/:p?/:limit?', function(req, res) {
+  app.get('/'+entity+'/list/:p?/:limit?', Controller.prototype.isAuthenticated, function(req, res) {
 	  var list = new List();
 	  
 	  Controller.prototype.addFileToHead('list/product/list.js', 'js');
@@ -55,7 +55,7 @@ ProductController.controller = function(app, entity) {
   /**
    * List route
    */
-   app.post('/'+entity+'/list', function(req, res) {
+   app.post('/'+entity+'/list', Controller.prototype.isAuthenticated, function(req, res) {
 	   req.session[entity + '_filters_list'] = req.body;
 	   res.redirect('/'+entity+'/list');
    });
@@ -63,7 +63,7 @@ ProductController.controller = function(app, entity) {
    /**
     * Create product, only code and family is required
     */
-    app.get('/'+entity+'/create', function(req, res) {
+    app.get('/'+entity+'/create', Controller.prototype.isAuthenticated, function(req, res) {
     	var formInstance = new forms();
    	  	var form = formInstance.getCreate();
    	  	
@@ -79,7 +79,7 @@ ProductController.controller = function(app, entity) {
   /**
   * Edit product route
   */
-  app.get('/'+entity+'/edit/:id', function(req, res) {
+  app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
 	
 	  var id = req.params.id;
 	  
@@ -146,7 +146,7 @@ ProductController.controller = function(app, entity) {
   /**
    * Remove route
    */
-   app.get('/'+entity+'/remove/:id', function(req, res) {
+   app.get('/'+entity+'/remove/:id', Controller.prototype.isAuthenticated, function(req, res) {
  	
  	  var id 	= req.params.id;
  	  
@@ -169,7 +169,7 @@ ProductController.controller = function(app, entity) {
   /**
   * Save route
   */
-  app.post('/'+entity+'/save', function(req, res) {
+  app.post('/'+entity+'/save', Controller.prototype.isAuthenticated, function(req, res) {
  	 
 	  var formInstance  = new forms();
 	  var form 			= formInstance.getCreate();
@@ -192,7 +192,7 @@ ProductController.controller = function(app, entity) {
   /**
    * Save route
    */
-   app.post('/'+entity+'/update/:id', function(req, res) {
+   app.post('/'+entity+'/update/:id', Controller.prototype.isAuthenticated, function(req, res) {
   	 
 	   var formInstance = new forms();
 	   var form = formInstance.getEdit();

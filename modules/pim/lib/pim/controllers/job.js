@@ -28,7 +28,7 @@ JobController.controller = function(app, entity) {
   /**
   * Execute job
   */
-  app.get('/'+entity+'/execute/:code', function(req, res) {
+  app.get('/'+entity+'/execute/:code', Controller.prototype.isAuthenticated, function(req, res) {
 	  
 	  var code 			= req.params.code;
 	  var jobExecution  = new JobExecution();
@@ -62,7 +62,7 @@ JobController.controller = function(app, entity) {
   /**
   * List route
   */
-  app.get('/'+entity+'/list/:type?/:p?/:limit?', function(req, res) {
+  app.get('/'+entity+'/list/:type?/:p?/:limit?', Controller.prototype.isAuthenticated, function(req, res) {
 	  /*
 	  var job = {
 			  code 			: "export_category_csv",
@@ -113,7 +113,7 @@ JobController.controller = function(app, entity) {
   /**
    * List route
    */
-   app.post('/'+entity+'/list', function(req, res) {
+   app.post('/'+entity+'/list', Controller.prototype.isAuthenticated, function(req, res) {
 	   req.session[entity + '_filters_list'] = req.body;
 	   res.redirect('/'+entity+'/list');
    });
@@ -121,7 +121,7 @@ JobController.controller = function(app, entity) {
    /**
     * Create product, only code and family is required
     */
-    app.get('/'+entity+'/create', function(req, res) {
+    app.get('/'+entity+'/create', Controller.prototype.isAuthenticated, function(req, res) {
     	var formInstance = new forms();
    	  	var form = formInstance.getCreate();
    	  	
@@ -137,7 +137,7 @@ JobController.controller = function(app, entity) {
     /**
      * Edit route
      */
-     app.get('/'+entity+'/edit/:id', function(req, res) {
+     app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
    	
    	  var id = req.params.id;
    	  
@@ -157,7 +157,7 @@ JobController.controller = function(app, entity) {
   /**
    * Remove route
    */
-   app.get('/'+entity+'/remove/:id', function(req, res) {
+   app.get('/'+entity+'/remove/:id', Controller.prototype.isAuthenticated, function(req, res) {
  	
  	  var id 	= req.params.id;
  	  
@@ -175,7 +175,7 @@ JobController.controller = function(app, entity) {
   /**
   * Save route
   */
-  app.post('/'+entity+'/save', function(req, res) {
+  app.post('/'+entity+'/save', Controller.prototype.isAuthenticated, function(req, res) {
  	 
 	  var formInstance  = new forms();
 	  var form 			= formInstance.getCreate();
@@ -198,7 +198,7 @@ JobController.controller = function(app, entity) {
   /**
    * Save route
    */
-   app.post('/'+entity+'/update/:id', function(req, res) {
+   app.post('/'+entity+'/update/:id', Controller.prototype.isAuthenticated, function(req, res) {
   	 
 	   var formInstance = new forms();
 	   var form = formInstance.getEdit(req.body);

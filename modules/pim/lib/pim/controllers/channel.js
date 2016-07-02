@@ -26,7 +26,7 @@ ChannelController.controller = function(app, entity) {
   /**
   * List route
   */
-  app.get('/'+entity+'/list/:p?/:limit?', function(req, res) {
+  app.get('/'+entity+'/list/:p?/:limit?', Controller.prototype.isAuthenticated, function(req, res) {
 	  var list = new List();
 	  list.getList(
 			  Item, 
@@ -52,7 +52,7 @@ ChannelController.controller = function(app, entity) {
   /**
    * List route filter
    */
-   app.post('/'+entity+'/list', function(req, res) {
+   app.post('/'+entity+'/list', Controller.prototype.isAuthenticated, function(req, res) {
 	   req.session[entity + '_filters_list'] = req.body;
 	   res.redirect('/'+entity+'/list');
    });
@@ -60,7 +60,7 @@ ChannelController.controller = function(app, entity) {
   /**
    * Create route
    */
-   app.get('/'+entity+'/create', function(req, res) {
+   app.get('/'+entity+'/create', Controller.prototype.isAuthenticated, function(req, res) {
 	  
 	  var formInstance = new forms();
 	  var form = formInstance.getEdit();
@@ -74,7 +74,7 @@ ChannelController.controller = function(app, entity) {
   /**
   * Edit route
   */
-  app.get('/'+entity+'/edit/:id', function(req, res) {
+  app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
 	
 	  var id = req.params.id;
 	  
@@ -119,7 +119,7 @@ ChannelController.controller = function(app, entity) {
    /**
    * Save route
    */
-   app.post('/'+entity+'/save', function(req, res) {
+   app.post('/'+entity+'/save', Controller.prototype.isAuthenticated, function(req, res) {
   	 
  	  var formInstance	= new forms();
  	  var form 			= formInstance.getEdit();
@@ -146,7 +146,7 @@ ChannelController.controller = function(app, entity) {
    /**
    * Update route
    */
-   app.post('/'+entity+'/update/:id', function(req, res) {
+   app.post('/'+entity+'/update/:id', Controller.prototype.isAuthenticated, function(req, res) {
   	 
 	   var formInstance = new forms();
 	   var form 		= formInstance.getEdit();
@@ -183,7 +183,7 @@ ChannelController.controller = function(app, entity) {
    	/**
     * Get locales in JSON for channel add locales functionnality
     */
-    app.get('/'+entity+'/locales', function(req, res) {
+    app.get('/'+entity+'/locales', Controller.prototype.isAuthenticated, function(req, res) {
   	
   	  	var startWith = req.query.name_startsWith;
   	  	

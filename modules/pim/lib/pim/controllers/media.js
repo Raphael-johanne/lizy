@@ -24,7 +24,7 @@ MediaController.controller = function(app, entity) {
    /**
    * get media preview
    */
-   app.get('/'+entity+'/get/:a/:b/:c/:d/:e/:f/:g/:file', function(req, res) { 
+   app.get('/'+entity+'/get/:a/:b/:c/:d/:e/:f/:g/:file', Controller.prototype.isAuthenticated, function(req, res) { 
    /**
     * @todo pass by regex route
     */
@@ -49,7 +49,7 @@ MediaController.controller = function(app, entity) {
    /**
     * upload media
     */
-    app.post('/'+entity+'/upload', upload.single('file'),  function(req, res) { 
+    app.post('/'+entity+'/upload', upload.single('file'), Controller.prototype.isAuthenticated, function(req, res) { 
     	var sku 			= req.body.sku;
     	var eanMediaPath 	= mediaService.getEanMediaPath(sku);
 		var fullMediaPath 	= mediaService.getFullMediaPath(sku, req.body.attributeCode, req.file.originalname);

@@ -19,12 +19,13 @@ function CategoryController() {
 
 util.inherits(CategoryController, Controller);
 
+
 CategoryController.controller = function(app, entity) {
 
   /**
   * List route
   */
-  app.get('/'+entity+'/list/:p?/:limit?', function(req, res) {
+  app.get('/'+entity+'/list/:p?/:limit?', Controller.prototype.isAuthenticated, function(req, res) {
 	  
 	  var format = new Format();
 	  format.objectToUnderscore({"title":{"commerce":{"fr":"titre en francais"}}});
@@ -49,7 +50,7 @@ CategoryController.controller = function(app, entity) {
   /**
    * List route
    */
-   app.post('/'+entity+'/list', function(req, res) {
+   app.post('/'+entity+'/list', Controller.prototype.isAuthenticated, function(req, res) {
 	   req.session[entity + '_filters_list'] = req.body;
 	   res.redirect('/'+entity+'/list');
    });
@@ -57,7 +58,7 @@ CategoryController.controller = function(app, entity) {
   /**
    * Create route
    */
-   app.get('/'+entity+'/create', function(req, res) {
+   app.get('/'+entity+'/create', Controller.prototype.isAuthenticated, function(req, res) {
 	  
 	  var formInstance = new forms();
 	  var form = formInstance.getEdit();
@@ -71,7 +72,7 @@ CategoryController.controller = function(app, entity) {
   /**
   * Edit route
   */
-  app.get('/'+entity+'/edit/:id', function(req, res) {
+  app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
 	
 	  var id = req.params.id;
 	  
@@ -92,7 +93,7 @@ CategoryController.controller = function(app, entity) {
   /**
    * Remove route
    */
-   app.get('/'+entity+'/remove/:id', function(req, res) {
+   app.get('/'+entity+'/remove/:id', Controller.prototype.isAuthenticated, function(req, res) {
  	
  	  var id 	= req.params.id;
  	  
@@ -110,7 +111,7 @@ CategoryController.controller = function(app, entity) {
   /**
   * Save route
   */
-  app.post('/'+entity+'/save', function(req, res) {
+  app.post('/'+entity+'/save', Controller.prototype.isAuthenticated, function(req, res) {
  	 
 	  var formInstance = new forms();
 	  var form = formInstance.getEdit();
@@ -137,7 +138,7 @@ CategoryController.controller = function(app, entity) {
   /**
    * Save route
    */
-   app.post('/'+entity+'/update/:id', function(req, res) {
+   app.post('/'+entity+'/update/:id', Controller.prototype.isAuthenticated, function(req, res) {
   	 
 	   var formInstance = new forms();
 	   var form = formInstance.getEdit();

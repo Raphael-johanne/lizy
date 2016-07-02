@@ -21,7 +21,7 @@ app = express();
 
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-
+var flash = require('connect-flash');
 var mongoose = require('mongoose');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,6 +31,7 @@ app.set('view engine', 'ejs');
 app.set('root', __dirname);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 var config = configService.getConfigByEnv(ENV);
 

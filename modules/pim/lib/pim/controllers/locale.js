@@ -23,7 +23,7 @@ LocaleController.controller = function(app, entity) {
   /**
   * List route
   */
-  app.get('/'+entity+'/list/:p?/:limit?', function(req, res) {
+  app.get('/'+entity+'/list/:p?/:limit?', Controller.prototype.isAuthenticated, function(req, res) {
 	  var list = new List();
 	  list.getList(Item, entity, {'code':'Code', 'name':'Name', 'status':'Status'}, {'code':'Code', 'name':'Name', 'status':'Status'}, req, function(err, docs, fields, filtersFormHtml, paginationHtml) {
 		  
@@ -44,7 +44,7 @@ LocaleController.controller = function(app, entity) {
   /**
    * List route
    */
-   app.post('/'+entity+'/list', function(req, res) {
+   app.post('/'+entity+'/list', Controller.prototype.isAuthenticated, function(req, res) {
 	   req.session[entity + '_filters_list'] = req.body;
 	   res.redirect('/'+entity+'/list');
    });
@@ -52,7 +52,7 @@ LocaleController.controller = function(app, entity) {
   /**
    * Create route
    */
-   app.get('/'+entity+'/create', function(req, res) {
+   app.get('/'+entity+'/create', Controller.prototype.isAuthenticated, function(req, res) {
 	  
 	  var formInstance = new forms();
 	  var form = formInstance.getEdit();
@@ -66,7 +66,7 @@ LocaleController.controller = function(app, entity) {
   /**
   * Edit route
   */
-  app.get('/'+entity+'/edit/:id', function(req, res) {
+  app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
 	
 	  var id = req.params.id;
 	  
@@ -87,7 +87,7 @@ LocaleController.controller = function(app, entity) {
   /**
    * Save route
    */
-   app.post('/'+entity+'/save', function(req, res) {
+   app.post('/'+entity+'/save', Controller.prototype.isAuthenticated, function(req, res) {
   	 
  	  var formInstance = new forms();
  	  var form = formInstance.getEdit();
@@ -115,7 +115,7 @@ LocaleController.controller = function(app, entity) {
   /**
    * Save route
    */
-   app.post('/'+entity+'/update/:id', function(req, res) {
+   app.post('/'+entity+'/update/:id', Controller.prototype.isAuthenticated, function(req, res) {
   	 
 	   var formInstance = new forms();
 	   var form = formInstance.getEdit();
