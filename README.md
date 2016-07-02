@@ -32,8 +32,8 @@ Create a user with this shell command
 
 `nodejs console.js pim:user username="YOUR_USERNAME_TO_LOG_WITH" email="YOUR_EMAIL" password="YOUR_PASSWORD_TO_LOG_WITH" env="YOUR_ENV"`
 
-`env` can be 'dev', 'preprod' or 'prod'.
-`password` is of course encrypted in LIZY for security reason.
+	1. `env` can be 'dev', 'preprod' or 'prod'.
+	2. `password` is of course encrypted in LIZY for security reason.
 
 Install default Import/Export Job with this shell command
 
