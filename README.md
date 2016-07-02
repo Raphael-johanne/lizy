@@ -4,7 +4,7 @@
 DESCRIPTION
 -----------
 
-A little PIM really fast in I/O treatment. Just one channel for the moment, but more will come soon.
+A PIM really fast in I/O treatment. Just one channel for the moment, but more will come soon.
 
 GENERALITY
 -----------
@@ -35,7 +35,7 @@ Create a user with this shell command
 	1. `env` can be 'dev', 'preprod' or 'prod'.
 	2. `password` is of course encrypted in LIZY for security reason.
 
-Install default Import/Export Job with this shell command
+Install default jobs with this shell command
 
 `nodejs console.js connector:install`
 
