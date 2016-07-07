@@ -45,5 +45,6 @@
 	"Name": "Name",
 	"Type": "Type",
 	"Status": "Status",
-	"Locale": "Locale"
+	"Locale": "Locale",
+	"Lisy": "Lisy"
 }

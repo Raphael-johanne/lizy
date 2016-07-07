@@ -46,5 +46,6 @@
 	"Type": "Type",
 	"Status": "Status",
 	"Locale": "Locale",
-	"Email": "Email"
+	"Email": "Email",
+	"Lisy": "Lisy"
 }
