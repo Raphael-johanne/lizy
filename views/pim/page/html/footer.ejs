@@ -1,4 +1,15 @@
 <!-- views/partials/footer.ejs -->
 <div class="row col-lg-12">
-	<p class="text-center text-muted">© Copyright <%= moment().format('YYYY'); %> Lisy</p>
+	<p class="text-center text-muted">
+		<select id="locale-interface">
+			<%	locales.forEach(function(el, index) { %>
+				<option <%- (current_locale == el) ? "selected='selected'" :"" %> value="<%- el %>"><%- el %></option>
+			<% }); %>
+		</select>
+		&nbsp;© Copyright <%= moment().format('YYYY'); %>&nbsp;<%- __('Lisy') %></p>
 </div>
+<script>
+$('#locale-interface').change(function() {
+	window.location.href = "?lang=" + $(this).val();
+});
+</script>

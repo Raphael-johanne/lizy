@@ -1,18 +1,18 @@
 	<div class="row">
 		<div class="btn-group pull-right" role="group">
-		  <a class="btn btn-default" href="javascript:history.go(-1)">Back	</a>
+		  <a class="btn btn-default" href="javascript:history.go(-1)"><%- __('Back') %>	</a>
 		</div>
 	</div>
 	<div class="panel panel-default">
 	  <div class="panel-heading">
-	    	<h3 class="panel-title">Execution of <i><%- jobCode %></i></h3>
+	    	<h3 class="panel-title"><%- __('Execution of %s', jobCode) %></h3>
 	  </div>
 	  <div class="panel-body">
 	  	<ul>
-	  		<li>Readed <span class="badge" id="execution-read">0</span></li>
-	  		<li>Updated <span class="badge" id="execution-update">0</span></li>
-	  		<li>Created <span class="badge" id="execution-create">0</span></li>
-	  		<li>In Error <span class="badge" id="execution-error">0</span></li>
+	  		<li><%- __('Readed') %> <span class="badge" id="execution-read">0</span></li>
+	  		<li><%- __('Updated') %> <span class="badge" id="execution-update">0</span></li>
+	  		<li><%- __('Created') %> <span class="badge" id="execution-create">0</span></li>
+	  		<li><%- __('In Error') %> <span class="badge" id="execution-error">0</span></li>
 	  	</ul>
 	  </div>
 	</div>

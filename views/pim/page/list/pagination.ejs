@@ -34,16 +34,13 @@
 						<a href="<%= basePath  %>/<%= i %>"><%= i %></a>
 					</li>
 				<% } %>
-					
-				
 			<% } %>
-			
 			<li>
 				<a href="<%= basePath  %>/<%= nbrPage %>"><%= nbrPage %></a>
 			</li>
 		</ul>
 	</div>
 	<div class="col-lg-6 pagination">
-		<%= nbrItem  %>&nbsp;Record(s)
+		<%= nbrItem  %>&nbsp;<%- __("Record(s)") %>
 	</div>
 </div>

@@ -2,10 +2,10 @@
 	  <div id="general" class="tab-pane fade in active">
 	    	<%- form.fields.sku.toHTML() %>
 	  </div>
-	  <label for="product-set-family">Family: </label>
+	  <label for="product-set-family"><%- __('Family') %>: </label>
 	  <input id="product-set-family" />
 	  <input type="hidden" id="product-family-id" name="family" />
-	  <input type="submit" value="Save" />
+	  <input type="submit" value="<%- __('Save') %>" />
 </form>
 
 <script>

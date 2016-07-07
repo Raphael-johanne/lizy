@@ -16,8 +16,17 @@ function Controller() {
 util.inherits(Controller, events.EventEmitter);
 
 Controller.prototype.render = function(res, template, data) {
+	
 	app.render(template, data, function (err, html) {
-		res.render('pim/page/index.ejs', { body: html , moment: moment, templateData : templateData});
+		console.log(err);
+		res.render('pim/page/index.ejs', { 
+			body			: html , 
+			moment			: moment, 
+			locales 		: app.get('locales'), 
+			current_locale 	: app.get('current_locale'),
+			templateData 	: templateData
+			}
+		);
 	})
 };
 
@@ -30,9 +39,9 @@ Controller.prototype.renderPopin = function(res, template, data) {
 //As with any middleware it is quintessential to call next()
 //if the user is authenticated
 Controller.prototype.isAuthenticated = function (req, res, next) {
-if (req.isAuthenticated())
-return next();
-res.redirect('/');
+	if (req.isAuthenticated())
+			return next();
+	res.redirect('/');
 }
 
 Controller.prototype.addFileToHead = function(path, type) {

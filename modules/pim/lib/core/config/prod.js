@@ -6,6 +6,7 @@
 var config 			= {};
 config.application 	= {};
 config.mongodb 		= {};
+config.locales 		= {};
 config.secretKey 	= "please_replace_me";
 
 /**
@@ -21,5 +22,10 @@ config.mongodb.protocol 	=  'mongodb';
 config.mongodb.host 		=  'localhost';
 config.mongodb.port 		=  '27017';
 config.mongodb.database 	=  'lizy';
+
+/**
+ * Availabale locale for interface 
+ */
+config.locales.available = ['fr', 'en'];
 
 module.exports = config;

@@ -1,15 +1,12 @@
 <!-- views/partials/header.ejs -->
-
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
-
         <div class="navbar-header">
             <a class="navbar-brand" href="/dashboard/index">
                 <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
                 <%- __("Lizy") %> 
             </a>
         </div>
-
         <ul class="nav navbar-nav">
         	<li><a href="/dashboard/index"><%- __("Dashboard") %></a></li>
         	<li><a href="/product/list"><%- __("Products") %></a></li>
@@ -29,15 +26,13 @@
         </ul>
       <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Premium Bootstrap Themes &amp; Templates"><i class="fa fa-star text-yellow"></i><%- __('My account') %><b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-star text-yellow"></i><%- __('My account') %><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="/signout"><i class="fa fa-fw fa-paint-brush"></i><%- __('Logout') %></a>
                     </li>
-                  
                 </ul>
             </li>
-           
         </ul>
     </div>
 </nav>

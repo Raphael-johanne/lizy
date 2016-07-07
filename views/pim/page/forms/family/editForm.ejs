@@ -2,14 +2,14 @@
 
 	<div class="row">
 		<div class="btn-group pull-right" role="group">
-		  <a class="btn btn-default" href="javascript:history.go(-1)">Back	</a>
+		  <a class="btn btn-default" href="javascript:history.go(-1)"><%- __('Back') %>	</a>
 		  <input class="btn btn-default" type="submit" />
 		</div>
 	</div>
 	
 	<ul class="nav nav-tabs">
-	  <li class="active"><a data-toggle="tab" href="#general">General</a></li>
-	  <li><a data-toggle="tab" href="#values">Attributes</a></li>
+	  <li class="active"><a data-toggle="tab" href="#general"><%- __('General') %></a></li>
+	  <li><a data-toggle="tab" href="#values"><%- __('Attributes') %></a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -19,12 +19,12 @@
 	  <div id="values" class="tab-pane fade">
 	  		<div class="btn-group">
 			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-			    Add attribute
+			    <%- __('Add attribute') %>
 			    <span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu">
 			   	<li>
-			   	<label for="family-add-attribute">Code: </label>
+			   	<label for="family-add-attribute"><%- __('Code') %>: </label>
   				<input id="family-add-attribute" />
 			   	
 			   	</li>
@@ -34,9 +34,9 @@
 			<table class="table">
 				<thead>
 				<tr>
-				  <th>Attribute</th>
-				  <th>Required</th>
-				  <th>Action</th>
+				  <th><%- __('Attribute') %></th>
+				  <th><%- __('Required') %></th>
+				  <th><%- __('Action') %></th>
 				</tr>
 				</thead>
 					<tbody id="family-attributes">&nbsp;</tbody>
