@@ -1,4 +1,8 @@
 <div class="row">
+	<div class="col-lg-12 pagination text-center">
+		<%= nbrItem  %>&nbsp;<%- __("Record(s)") %>
+	</div>
+	<% if (nbrItem > limit) { %>
 	<div class="col-lg-6">
 		<ul class="pagination">
 			<li>
@@ -10,9 +14,16 @@
 						<a href="<%= basePath  %>/<%= i %>"><%= i %></a>
 					</li>
 				<% } %>
-			<% } else if (currentPage > 3 && currentPage < (nbrPage-3)) { %>
-			 	<li><a href="<%= basePath  %>/<%= i %>">...</a></li>
-				<% for (var i = parseInt(currentPage)-3; i <= parseInt(currentPage)+3; i++) {  %>
+			<% } else if (currentPage <= 3  && currentPage <= nbrPage) { %>
+				<% for (var i = 2; i < 5; i++) {  %>
+					<li>
+						<a href="<%= basePath  %>/<%= i %>"><%= i %></a>
+					</li>
+				<% } %>
+				<li><a href="<%= basePath  %>/<%= parseInt(currentPage) + 3 %>">...</a></li>
+			<% } else if (currentPage > 3 && currentPage <= (nbrPage-3)) { %>
+			 	<li><a href="<%= basePath  %>/<%= currentPage - 3 %>">...</a></li>
+				<% for (var i = parseInt(currentPage)-2; i <= parseInt(currentPage)+3; i++) {  %>
 					<li>
 						<a href="<%= basePath  %>/<%= i %>"><%= i %></a>
 					</li>
@@ -29,6 +40,7 @@
 					</li>
 				
 			<% } else if (currentPage > parseInt(nbrPage)-3  && currentPage <= nbrPage) { %>
+				<li><a href="<%= basePath  %>/<%= currentPage - 3 %>">...</a></li>
 				<% for (var i = parseInt(nbrPage)-3; i <= parseInt(nbrPage)-1; i++) {  %>
 					<li>
 						<a href="<%= basePath  %>/<%= i %>"><%= i %></a>
@@ -40,7 +52,5 @@
 			</li>
 		</ul>
 	</div>
-	<div class="col-lg-6 pagination">
-		<%= nbrItem  %>&nbsp;<%- __("Record(s)") %>
-	</div>
+	<% } %>
 </div>
