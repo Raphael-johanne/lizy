@@ -101,6 +101,25 @@ installCommand.prototype.execute = function() {
 	 });
 
 	/**
+	 * Export families in CSV
+	 */
+	jobs.push({
+		  code 			: "export_family_csv",
+		  name 			: "Export families in CSV",
+		  type 			: "export",
+		  config : {
+			  path : "modules/pim/export/families.csv",
+			  connector : {
+				  reader 	: "mongo/reader",
+				  processor : "processor",
+				  writer 	: "csv/csvWriter"
+			  },
+			  fields 		: "code title cdate mdate",
+			  collection 	: "family"	
+		  }
+	 });
+	
+	/**
 	 * Export categories in CSV
 	 */
 	jobs.push({
