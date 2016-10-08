@@ -32,14 +32,17 @@ util.inherits(Processor, events.EventEmitter);
 
 Processor.prototype.treat = function(item, last, callBack) {
 	/**
-	 * if model and item are provided in config of the profile,
-	 * trying to load item
+	 * if model and item are provided in profile configuration and item is not loaded
+	 * trying to load it
 	 */
-	if (this.model !== null && item !== null) {
+	if (this.model !== null 
+			&& item !== null
+			&& typeof item[this.key] === 'undefined'
+		) {
 		var conditions = {};
 		conditions[this.key] = item[this.key];
 		
-		this.model.findOne(conditions, {},function(err, doc){
+		this.model.findOne(conditions, {}, function(err, doc){
 			
 			item.mdate = moment().format(coreGlobal.getDefaultDateFormat());
 			
@@ -49,14 +52,13 @@ Processor.prototype.treat = function(item, last, callBack) {
 				item.cdate = item.mdate;
 			}
 			
-			callBack(item, last);
+			callBack.treat(item, last);
 		})
 	} else {
-		
 		/**
-		 * @see callBack
+		 * @see Profile configuration to know witch writer is used
 		 */
-		callBack(item, last);
+		callBack.treat(item, last);
 	}
 };
 

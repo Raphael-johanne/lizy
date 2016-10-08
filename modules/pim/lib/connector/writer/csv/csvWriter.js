@@ -27,8 +27,13 @@ util.inherits(CsvWriter, Writer);
 
 var writer = new CsvWriter();
 
+/**
+ * write an item
+ * 
+ * @param object  item
+ * @param boolean last 
+ */
 CsvWriter.prototype.treat = function(item, last) {
-	
 	csvStream.write(item);
 	if (last === true) {
 		csvStream.end();

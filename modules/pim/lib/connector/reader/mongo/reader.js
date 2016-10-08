@@ -20,10 +20,16 @@ function MongoReader(config, jobExecution) {
 
 util.inherits(MongoReader, Reader);
 
+/**
+ * Get mongoDb documents and each document will be processed by processor 
+ */
 MongoReader.prototype.treat = function(processorCallBack, writerCallback) {
 	this.model.find({}, this.config.fields, function(err, docs) {
 		  if (err) throw (err);
-		  return processorCallBack(docs);
+		  
+		  docs.forEach(function(doc, index) {
+			  processorCallBack.treat(doc.toObject(), false, writerCallback);
+		  });
 		}
 	);
 };

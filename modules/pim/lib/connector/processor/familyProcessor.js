@@ -30,22 +30,20 @@ util.inherits(FamilyProcessor, Processor);
 
 FamilyProcessor.prototype.treat = function(item, last, writerCallback) {
 	if (last === false) {
-		if(this.row === 0) {
-			
+		if (this.row === 0) {
 			this.familyCode 	= item.family_code;
 			this.familyTitle 	= item.family_title;
 		} else {
 			this.attributes.push({code:item.attribute, required:item.required});
 		}
 		this.row++;
-		
 	}else {
 		this.row = 0;
 		var nbrAttributes = this.attributes.length-1;
 	
 		this.attributes.forEach(function(attribute, index){
 			
-			this.attributeModel.findOne({code:attribute.code}, "_id",function(err, doc){
+			this.attributeModel.findOne({code:attribute.code}, "_id", function(err, doc) {
 				
 				if (doc === null || typeof doc === 'undefined') {
 					nbrAttributes--;
@@ -69,10 +67,8 @@ FamilyProcessor.prototype.treat = function(item, last, writerCallback) {
 							
 						});
 					}.bind(this);
-					
 					assignAttributes(this.familyCode, this.familyTitle, this.familyAttributes);
 				}
-				
 			}.bind(this))
 		}.bind(this));
 	}

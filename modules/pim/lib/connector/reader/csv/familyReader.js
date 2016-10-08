@@ -24,13 +24,11 @@ FamilyReader.prototype.treat = function(processorCallBack, writerCallback) {
 			 
 			var csvStream = csv({headers: true})
 			    .on("data", function(data){
-			    	
 			    	processorCallBack.treat(data, false, writerCallback);
 			    })
 			    .on("end", function(){
 			    	processorCallBack.treat(null, true, writerCallback);
 			    });
-			
 			
 			stream.pipe(csvStream);	
 			

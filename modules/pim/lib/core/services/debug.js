@@ -7,7 +7,7 @@ var debugAvailable = true;
 
 module.exports = {
     /**
-     * Dump to use forshell treatment
+     * Dump to use for shell treatment
      * 
      * @return string
      */

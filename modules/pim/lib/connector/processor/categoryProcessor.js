@@ -22,12 +22,12 @@ util.inherits(CategoryProcessor, Processor);
 CategoryProcessor.prototype.treat = function(item, last, writerCallback) {
 	
 	Processor.prototype.treat.call(this, item, last, function(doc, last){
-		/**
-		 * example of override a proceed item, item can come from database or be a new entry.
-		 * doc.name = foo;
-		 */
+		
+		var processed = [];
+		processed['code'] = doc.code;
+		
 		if (!last){
-			writerCallback.treat(doc, last);
+			writerCallback.treat(processed, last);
 		}
 		
 	});
