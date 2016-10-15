@@ -12,7 +12,9 @@ var mongoose = require('mongoose');
  * @TODO Fix : no more relative path
  */
 require('../../pim/models/job');
-var ItemJob 	 = mongoose.model('job');
+require('../../pim/models/locale');
+var ItemJob		= mongoose.model('job');
+var ItemLocale	= mongoose.model('locale');
 
 function installCommand(parameters) {
 	this.code = parameters.code;
@@ -23,6 +25,13 @@ function installCommand(parameters) {
  */
 installCommand.prototype.execute = function() {
 	var jobs = [];
+	ItemJob.remove({}, function(err) { 
+		console.log('collection job removed'); 
+	});
+	
+	ItemLocale.remove({}, function(err) { 
+		console.log('collection locale removed'); 
+	});
 	
 	/**
 	 * import product from CSV
@@ -35,7 +44,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/products",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "productProcessor",
+				  processor : "import/productProcessor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "product",
@@ -54,7 +63,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/attributes",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "attributeProcessor",
+				  processor : "import/attributeProcessor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "attribute",
@@ -73,7 +82,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/attribute_options",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "attributeValueProcessor",
+				  processor : "import/attributeValueProcessor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "attribute",
@@ -92,7 +101,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/categories",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "categoryProcessor",
+				  processor : "import/categoryProcessor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "category",
@@ -100,6 +109,25 @@ installCommand.prototype.execute = function() {
 		  }
 	 });
 
+	/**
+	 * import families from CSV
+	 */
+	jobs.push({
+		  code 			: "import_family_csv",
+		  name 			: "Import families from CSV",
+		  type 			: "import",
+		  config : {
+			  path : "modules/pim/import/families",
+			  connector : {
+				  reader 	: "csv/reader",
+				  processor : "import/familyProcessor",
+				  writer 	: "mongo/writer"
+			  },
+			  collection : "family",
+		  	  key : "code"
+		  }
+	 });
+	
 	/**
 	 * Export families in CSV
 	 */
@@ -146,7 +174,7 @@ installCommand.prototype.execute = function() {
 		  name 			: "Export attributes in CSV",
 		  type 			: "export",
 		  config : {
-			  path : "modules/pim/export/attributes",
+			  path : "modules/pim/export/attributes.csv",
 			  connector : {
 				  reader 	: "mongo/reader",
 				  processor : "processor",
@@ -173,6 +201,25 @@ installCommand.prototype.execute = function() {
 			  },
 			  fields 		: "code title cdate mdate",
 			  collection 	: "attribute"
+		  }
+	 });
+	
+	/**
+	 * Export products in CSV
+	 */
+	jobs.push({
+		  code 			: "export_product_csv",
+		  name 			: "Export products in CSV",
+		  type 			: "export",
+		  config : {
+			  path : "modules/pim/export/products.csv",
+			  connector : {
+				  reader 	: "mongo/reader",
+				  processor : "export/productProcessor",
+				  writer 	: "csv/csvWriter"
+			  },
+			  fields 		: "",
+			  collection 	: "product"
 		  }
 	 });
 	

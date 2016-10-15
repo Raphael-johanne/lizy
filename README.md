@@ -53,14 +53,17 @@ HOW TO USE
 
 LIZY provide an interface to manage your product but also some shell commands to export your data.
 
-With a terminal, you can lunch commands above (where "ENV" can be `env`, 'dev', 'preprod' or 'prod') :
+With a terminal, you can lunch commands above (where "ENV" can be 'dev', 'preprod' or 'prod') :
+
+To export :
 
 	1. /PROJECT_LOCATION/nodejs console.js connector:job code=export_attribute_csv env=ENV
 	2. /PROJECT_LOCATION/nodejs console.js connector:job code=export_attribute_option_csv env=ENV
 	3. /PROJECT_LOCATION/nodejs console.js connector:job code=export_category_csv env=ENV
 	4. /PROJECT_LOCATION/nodejs console.js connector:job code=export_family_csv env=ENV
+	5. /PROJECT_LOCATION/nodejs console.js connector:job code=export_product_csv env=ENV
 
-It will generate CSV file in "modules/pim/export" folder.
+	It will generate CSV file in "modules/pim/export" folder.
 
 
 

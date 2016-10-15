@@ -40,16 +40,15 @@ ProductController.controller = function(app, entity) {
 		  
 				  if (err) return res.status(404).render('page/404.ejs');
 				  
-				  Controller.prototype.render(res, 'pim/page/list.ejs', {
-			    	  'items'		: docs,
-			    	  'entity'  	: entity,
-			    	  'fields'  	: fields,
-			    	  'filters' 	: filtersFormHtml,
-			    	  'pagination' 	: paginationHtml
-			    	  }
-			      );
+					  Controller.prototype.render(res, 'pim/page/list.ejs', {
+				    	  'items'		: docs,
+				    	  'entity'  	: entity,
+				    	  'fields'  	: fields,
+				    	  'filters' 	: filtersFormHtml,
+				    	  'pagination' 	: paginationHtml
+				    	  }
+				      );
 	  			});
-	  
   });
 
   /**

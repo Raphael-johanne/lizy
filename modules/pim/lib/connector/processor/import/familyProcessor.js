@@ -3,7 +3,7 @@
  * MIT Licensed
  */
 
-var Processor 	= require("./processor.js");
+var Processor 	= require("../processor.js");
 var events 		= require("events");
 var util 		= require("util");
 var mongoose 	= require('mongoose');
