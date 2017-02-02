@@ -5,7 +5,7 @@
 
 var DEFAULT_DATE_FORMAT = 'YYYY/MM/DD HH:mm';
 
-var fs = require('fs')
+var fs = require('fs');
 
 module.exports = {
     /**

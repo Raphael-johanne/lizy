@@ -12,6 +12,11 @@
     </header>
 
     <main>
+  	  <% if (message) { %>
+			<div class="alert-<%- message.type %> alert" role="alert">
+				<%- message.message %>
+			</div>
+		<% } %>
        <%- body %>
     </main>
 

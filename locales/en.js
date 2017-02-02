@@ -46,5 +46,6 @@
 	"Type": "Type",
 	"Status": "Status",
 	"Locale": "Locale",
-	"Lisy": "Lisy"
+	"Lisy": "Lisy";
+    "The family has been succesfully updated":"The family has been succesfully updated"
 }

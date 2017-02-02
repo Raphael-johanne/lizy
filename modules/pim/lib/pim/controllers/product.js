@@ -40,7 +40,7 @@ ProductController.controller = function(app, entity) {
 		  
 				  if (err) return res.status(404).render('page/404.ejs');
 				  
-					  Controller.prototype.render(res, 'pim/page/list.ejs', {
+					  Controller.prototype.render(res, req, 'pim/page/list.ejs', {
 				    	  'items'		: docs,
 				    	  'entity'  	: entity,
 				    	  'fields'  	: fields,
@@ -90,7 +90,7 @@ ProductController.controller = function(app, entity) {
 	  
 	  Controller.prototype.once('attributes_loaded', function(doc) {
 		  var form = formInstance.getEdit(doc.normalizedData);
-		  Controller.prototype.render(res, form.template, {
+		  Controller.prototype.render(res, req, form.template, {
 	    	  'form'	: form.toHTML(),
 	    	  'action'	: '/'+entity+'/update/'+ id,
 	    	  }
@@ -157,10 +157,12 @@ ProductController.controller = function(app, entity) {
  		 doc.remove(function (err, doc ){
  		      if (err) return next( err );
  		     
+              req.session.message = {type:'success', message: 'Product has been succesfully removed'};  
  		      res.redirect( '/'+entity+'/list' );
  		      
  		      // remove media of product
  		      mediaService.removeMediaBySku(sku);
+
  		    });
  		});
    });
@@ -175,14 +177,17 @@ ProductController.controller = function(app, entity) {
 	   
 	   form.handle(req, {
 	        success: function (form) {
+                    req.session.message = {type:'success', message: 'Product has been succesfully created'};
 	        		new Item(form.data).save( function( err, item, count ){
 		        	    res.redirect('/'+ entity +'/edit/' + item._id);
 		        	  });
 	        	},
 	        error: function (form) {
-	        	return res.redirect('/'+ entity +'/list');
+                req.session.message = {type:'danger', message: 'An error append'};	        	
+                return res.redirect('/'+ entity +'/list');
 	        },
 	        empty: function (form) {
+                req.session.message = {type:'danger', message: 'An error append'};
 	        	return res.status(404).render('pim/page/404.ejs');
 	        }
 	    });
@@ -204,14 +209,14 @@ ProductController.controller = function(app, entity) {
  	        		  doc.normalizedData = req.body;
  	        		
  	        		  doc.mdate = Date.now();
- 	        		  
+ 	        		  req.session.message = {type:'success', message: 'Product has been succesfully updated'};
  	        		  doc.save( function ( err, item, count ){
  	        			res.redirect('/'+ entity +'/edit/' + item._id);
  	        	      });
  	      		});
  	        },
  	        error: function (form) {
- 	        	
+                req.session.message = {type:'danger', message: 'An error append'};
  	        	Controller.prototype.render(res, 'pim/page/form.ejs', {
  		  	    	  'form'	: form.toHTML(),
  		  	    	  'action'	: '/'+entity+'/save'
@@ -219,6 +224,7 @@ ProductController.controller = function(app, entity) {
  	  	      );
  	        },
  	        empty: function (form) {
+                req.session.message = {type:'danger', message: 'An error append'};
  	        	return res.status(404).render('pim/page/404.ejs');
  	        }
  	    });
