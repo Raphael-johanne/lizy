@@ -33,7 +33,7 @@ FamilyController.controller = function(app, entity) {
 		  
 		  if (err) return res.status(404).render('page/404.ejs');
 		  
-		  Controller.prototype.render(res, 'pim/page/list.ejs', {
+		  Controller.prototype.render(res, req, 'pim/page/list.ejs', {
 	    	  'items'		: docs,
 	    	  'entity'  	: entity,
 	    	  'fields'  	: fields,
@@ -42,7 +42,6 @@ FamilyController.controller = function(app, entity) {
 	    	  }
 	      );
 	  });
-	  
   });
 
   /**
@@ -53,7 +52,6 @@ FamilyController.controller = function(app, entity) {
 	   res.redirect('/'+entity+'/list');
    });
 
-  
    /**
     * Create family, only code is required
     */
@@ -78,7 +76,7 @@ FamilyController.controller = function(app, entity) {
 	  Controller.prototype.addFileToHead('forms/family/form.js', 'js');
 	  
 	  Controller.prototype.once('attributes_loaded', function(attributes, form) {
-    	  Controller.prototype.render(res, form.template, {
+    	  Controller.prototype.render(res, req, form.template, {
 	    	  'form'	: form,
 	    	  'action'	: '/'+entity+'/update/'+ id,
 	    	  'attributes': attributes
@@ -127,7 +125,9 @@ FamilyController.controller = function(app, entity) {
  		 doc.remove(function (err, doc ){
  		      if (err) return next( err );
  		     
- 		      res.redirect( '/'+entity+'/list' );
+                  req.session.message = {type:'success', message: 'The family has been succesfully removed'};
+
+     		      res.redirect( '/'+entity+'/list' );
  		    });
  		});
    });
@@ -142,14 +142,17 @@ FamilyController.controller = function(app, entity) {
 	   
 	   form.handle(req, {
 	        success: function (form) {
+                    req.session.message = {type:'success', message: 'The family has been succesfully created'};
 	        		new Item(form.data).save( function( err, item, count ){
 		        	    res.redirect('/'+ entity +'/edit/' + item._id);
 		        	  });
 	        	},
 	        error: function (form) {
+                req.session.message = {type:'danger', message: 'An error append'};
 	        	return res.redirect('/'+ entity +'/list');
 	        },
 	        empty: function (form) {
+                req.session.message = {type:'danger', message: 'An error append'};
 	        	return res.status(404).render('pim/page/404.ejs');
 	        }
 	    });
@@ -174,13 +177,15 @@ FamilyController.controller = function(app, entity) {
  	        		  
  	        		  doc.mdate = Date.now();
  	        		  
- 	        		  doc.save( function ( err, item, count ){
+ 	        		  doc.save(function (err, item, count){
+                        req.session.message = {type:'success', message: 'The family has been succesfully updated'};
  	        			res.redirect('/'+ entity +'/edit/' + item._id);
  	        	      });
  	      		});
  	        },
  	        error: function (form) {
- 	        	Controller.prototype.render(res, 'pim/page/form.ejs', {
+                req.session.message = {type:'danger', message: 'An error append'};
+ 	        	Controller.prototype.render(res, req, 'pim/page/form.ejs', {
  		  	    	  'form'	: form,
  		  	    	  'action'	: '/'+entity+'/save'
  		  	    	  }
@@ -188,6 +193,7 @@ FamilyController.controller = function(app, entity) {
  	  	      );
  	        },
  	        empty: function (form) {
+                req.session.message = {type:'danger', message: 'An error append'};
  	        	return res.status(404).render('pim/page/404.ejs');
  	        }
  	    });

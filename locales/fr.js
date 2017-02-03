@@ -48,4 +48,5 @@
 	"Locale": "Locale",
 	"Email": "Email",
 	"Lisy": "Lisy"
+    "The family has been succesfully updated":"La famille a été mise à jour"
 }

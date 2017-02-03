@@ -35,7 +35,7 @@ CategoryController.controller = function(app, entity) {
 		  
 		  if (err) return res.status(404).render('page/404.ejs');
 		  
-		  Controller.prototype.render(res, 'pim/page/list.ejs', {
+		  Controller.prototype.render(res, req, 'pim/page/list.ejs', {
 	    	  'items'		: docs,
 	    	  'entity'  	: entity,
 	    	  'fields'  	: fields,
@@ -63,7 +63,7 @@ CategoryController.controller = function(app, entity) {
 	  var formInstance = new forms();
 	  var form = formInstance.getEdit();
 	  
-	  Controller.prototype.render(res, 'pim/page/form.ejs', {
+	  Controller.prototype.render(res, req, 'pim/page/form.ejs', {
     	  'form'	: formInstance.getHtml(form),
     	  'action'	: '/'+entity+'/save'
     	  });
@@ -82,7 +82,7 @@ CategoryController.controller = function(app, entity) {
 		  var formInstance = new forms();
 		  var form = formInstance.getEdit(doc);
 		  
-		  Controller.prototype.render(res, 'pim/page/form.ejs', {
+		  Controller.prototype.render(res, req, 'pim/page/form.ejs', {
 	    	  'form'	: formInstance.getHtml(form),
 	    	  'action'	: '/'+entity+'/update/'+ id
 	    	  }
@@ -102,7 +102,7 @@ CategoryController.controller = function(app, entity) {
  		 
  		 doc.remove(function (err, doc ){
  		      if (err) return next( err );
- 		     
+ 		      req.session.message = {type:'success', message: 'The category has been succesfully removed'};
  		      res.redirect( '/'+entity+'/list' );
  		    });
  		});
@@ -118,18 +118,21 @@ CategoryController.controller = function(app, entity) {
 	   
 	   form.handle(req, {
 	        success: function (form) {
+                    req.session.message = {type:'success', message: 'The category has been succesfully created'};
 	        		new Item(form.data).save( function( err, item, count ){
 		        	    res.redirect('/'+ entity +'/edit/' + item._id);
 		        	  });
 	        	},
 	        error: function (form) {
-	        	Controller.prototype.render(res, 'pim/page/form.ejs', {
+                req.session.message = {type:'danger', message: 'An error append'};
+	        	Controller.prototype.render(res, req, 'pim/page/form.ejs', {
 	  	    	  'form'	: formInstance.getHtml(form),
 	  	    	  'action'	: '/'+entity+'/save'
 	  	    	  }
 	  	      );
 	        },
 	        empty: function (form) {
+                req.session.message = {type:'danger', message: 'An error append'};
 	        	return res.status(404).render('pim/page/404.ejs');
 	        }
 	    });
@@ -150,13 +153,14 @@ CategoryController.controller = function(app, entity) {
  	        		  if (err) return res.status(404).render('pim/page/404.ejs');
  	        		  doc = merge(doc, form.data);
  	        		  doc.mdate = Date.now();
- 	        		  
+ 	        		  req.session.message = {type:'success', message: 'The category has been succesfully updated'};
  	        		  doc.save( function ( err, item, count ){
  	        			res.redirect('/'+ entity +'/edit/' + item._id);
  	        	      });
  	      		});
  	        },
  	        error: function (form) {
+                req.session.message = {type:'danger', message: 'An error append'};
  	        	Controller.prototype.render(res, 'pim/page/form.ejs', {
  		  	    	  'form'	: formInstance.getHtml(form),
  		  	    	  'action'	: '/'+entity+'/save'
@@ -165,6 +169,7 @@ CategoryController.controller = function(app, entity) {
  	  	      );
  	        },
  	        empty: function (form) {
+                req.session.message = {type:'danger', message: 'An error append'};
  	        	return res.status(404).render('pim/page/404.ejs');
  	        }
  	    });

@@ -15,16 +15,24 @@ function Controller() {
 
 util.inherits(Controller, events.EventEmitter);
 
-Controller.prototype.render = function(res, template, data) {
-	
+Controller.prototype.render = function(res, req, template, data) {
+
+    var message = [];
+
+    if (req.session.message){
+        message = req.session.message;        
+        req.session.message = [];
+    }
+
 	app.render(template, data, function (err, html) {
-		console.log(err);
+	
 		res.render('pim/page/index.ejs', { 
 			body			: html , 
 			moment			: moment, 
 			locales 		: app.get('locales'), 
 			current_locale 	: app.get('current_locale'),
-			templateData 	: templateData
+			templateData 	: templateData,
+            message         : message
 			}
 		);
 	})

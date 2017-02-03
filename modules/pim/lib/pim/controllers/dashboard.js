@@ -19,7 +19,7 @@ DashboardController.controller = function(app, entity) {
 	 * Index route
 	 */
 	app.get('/'+entity+'/index', Controller.prototype.isAuthenticated, function(req, res) {
-		Controller.prototype.render(res, 'pim/page/dashboard.ejs', {});
+		Controller.prototype.render(res, req, 'pim/page/dashboard.ejs', {});
 	});  
 }
 
