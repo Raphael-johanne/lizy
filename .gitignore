@@ -7,3 +7,4 @@ modules/pim/export
 !modules/pim/import/families/.gitkeep
 !modules/pim/import/products/.gitkeep
 modules/pim/import
+.idea/*
