@@ -7,7 +7,12 @@ var Processor 	= require("../processor.js");
 var events 		= require("events");
 var util 		= require("util");
 var mongoose 	= require('mongoose');
-
+var moment 			= require('moment');
+var merge 			= require('merge');
+/*
+ * @TODO Fix : no more relative path
+ */
+var coreGlobal 		= require('../../../core/services/config.js');
 function FamilyProcessor(config, jobExecution) {
 	
 	/**
@@ -28,7 +33,8 @@ function FamilyProcessor(config, jobExecution) {
 
 util.inherits(FamilyProcessor, Processor);
 
-FamilyProcessor.prototype.treat = function(item, last, writerCallback) {
+FamilyProcessor.prototype.treat = function(item, last, callBack) {
+	
 	if (last === false) {
 		if (this.row === 0) {
 			this.familyCode 	= item.family_code;
@@ -57,15 +63,24 @@ FamilyProcessor.prototype.treat = function(item, last, writerCallback) {
 				 */
 				if (nbrAttributes == index) {
 					var assignAttributes = function(familyCode, familyTitle, familyAttributes){
-						
-						Processor.prototype.treat.call(this, {code:familyCode}, last, function(doc, last){
-												
-							doc.title 		= familyTitle;
-							doc.attributes 	= familyAttributes;
+						this.familyAttributes = [];
+						this.model.findOne({code:familyCode}, {}, function(err, doc){
+
+							if (doc !== null) {
+								item = merge(doc, item);
+								item.attributes = familyAttributes;
+							} else {
+								item = {
+									code:familyCode,
+									title:familyTitle,
+									attributes:familyAttributes
+								};
+							}
+
+							item.mdate = moment().format(coreGlobal.getDefaultDateFormat());
 							
-							writerCallback.treat(doc, last);
-							
-						});
+							callBack.treat(item, false);
+						})
 					}.bind(this);
 					assignAttributes(this.familyCode, this.familyTitle, this.familyAttributes);
 				}

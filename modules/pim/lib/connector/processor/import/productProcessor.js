@@ -26,7 +26,7 @@ function ProductProcessor(config, jobExecution) {
 
 util.inherits(ProductProcessor, Processor);
 
-ProductProcessor.prototype.treat = function(item, last, writerCallback) {
+ProductProcessor.prototype.treat = function(item, last, callback) {
 	
 	var attributes = [];
 	ProductProcessor.prototype.removeAllListeners('attributes_loaded');
@@ -44,10 +44,25 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 				product.normalizedData 	= item;
 				
 				var updateProduct = function(product){
-					
+					if (doc !== null) {
+								item = merge(doc, item);
+								item.attributes = familyAttributes;
+							} else {
+								item = {
+									code:familyCode,
+									title:familyTitle,
+									attributes:familyAttributes
+								};
+							}
+
+							item.mdate = moment().format(coreGlobal.getDefaultDateFormat());
+							
+							callBack.treat(item, false);
+					/*
 					Processor.prototype.treat.call(this, product, last, function(doc, last){
 						writerCallback.treat(doc, last);
 					});
+					*/
 				}.bind(this);
 				
 				updateProduct(product);

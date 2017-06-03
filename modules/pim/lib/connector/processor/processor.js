@@ -37,7 +37,7 @@ Processor.prototype.treat = function(item, last, callBack) {
 	 */
 	if (this.model !== null 
 			&& item !== null
-			&& typeof item[this.key] === 'undefined'
+			&& typeof item[this.key] !== 'undefined'
 		) {
 		var conditions = {};
 		conditions[this.key] = item[this.key];

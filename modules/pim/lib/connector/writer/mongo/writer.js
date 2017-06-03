@@ -24,11 +24,19 @@ function MongoWriter(config, jobExecution) {
 util.inherits(MongoWriter, Writer);
 
 MongoWriter.prototype.treat = function(item, last) {
-	
+
+	if (last === true) {
+		/**
+		@TODO end of execution
+		*/
+		return;
+	}
+
 	if (typeof item._id !== 'undefined') {
 		item.save( function ( err, item, count ){
+
 			if (err) {
-				this.jobExecution.addError(err, item.sku);
+				this.jobExecution.addError(err, item[this.config.key]);
 			} else {
 				this.jobExecution.addUpdateEntry();
 			}
@@ -37,7 +45,7 @@ MongoWriter.prototype.treat = function(item, last) {
 	} else {
 		new this.model(item).save(function( err, item, count ){
 			if (err) {
-				this.jobExecution.addError(err, item.sku);
+				this.jobExecution.addError(err, item[this.config.key]);
 			} else {
 				this.jobExecution.addCreateEntry();
 			}
