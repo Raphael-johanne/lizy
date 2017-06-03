@@ -11,7 +11,7 @@ var moment 			= require('moment');
 /*
  * @TODO Fix : no more relative path
  */
-var coreGlobal 		= require('../../core/services/config.js');
+var coreGlobal 		= require('../../../core/services/config.js');
 
 function Processor(config, jobExecution) {
 	this.config 		= config;
@@ -30,7 +30,7 @@ function Processor(config, jobExecution) {
 
 util.inherits(Processor, events.EventEmitter);
 
-Processor.prototype.treat = function(item, last, callBack) {
+Processor.prototype.treat = function(item, last, callback) {
 	/**
 	 * if model and item are provided in profile configuration and item is not loaded
 	 * trying to load it
@@ -52,13 +52,13 @@ Processor.prototype.treat = function(item, last, callBack) {
 				item.cdate = item.mdate;
 			}
 			
-			callBack.treat(item, last);
+			callback.treat(item, last);
 		})
 	} else {
 		/**
 		 * @see Profile configuration to know witch writer is used
 		 */
-		callBack.treat(item, last);
+		callback.treat(item, last);
 	}
 };
 

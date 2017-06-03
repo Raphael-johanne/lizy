@@ -3,12 +3,17 @@
  * MIT Licensed
  */
 
-var Processor 			= require("../processor.js");
+var Processor 			= require("./processor.js");
 var events 				= require("events");
 var util 				= require("util");
 var mongoose 			= require('mongoose');
 var attributeService 	= require('../../service/attribute');
-
+var moment 			= require('moment');
+var merge 			= require('merge');
+/*
+ * @TODO Fix : no more relative path
+ */
+var coreGlobal 		= require('../../../core/services/config.js');
 function ProductProcessor(config, jobExecution) {
 	
 	/**
@@ -44,25 +49,19 @@ ProductProcessor.prototype.treat = function(item, last, callback) {
 				product.normalizedData 	= item;
 				
 				var updateProduct = function(product){
-					if (doc !== null) {
-								item = merge(doc, item);
-								item.attributes = familyAttributes;
-							} else {
-								item = {
-									code:familyCode,
-									title:familyTitle,
-									attributes:familyAttributes
-								};
-							}
+					this.model.findOne({sku:item.sku}, {}, function(err, doc){
 
-							item.mdate = moment().format(coreGlobal.getDefaultDateFormat());
-							
-							callBack.treat(item, false);
-					/*
-					Processor.prototype.treat.call(this, product, last, function(doc, last){
-						writerCallback.treat(doc, last);
-					});
-					*/
+						if (doc !== null) {
+							item = merge(doc, product);
+						} else {
+							item = product;
+						}
+
+						item.mdate = moment().format(coreGlobal.getDefaultDateFormat());
+						
+						callback.treat(item, false);
+					})
+				
 				}.bind(this);
 				
 				updateProduct(product);

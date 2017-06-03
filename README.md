@@ -1,5 +1,5 @@
 @author RAPHAEL COLBOC
-@package LIZY 1.0.1
+@package LIZY 1.1.0
 
 DESCRIPTION
 -----------
@@ -60,7 +60,7 @@ To export :
 	1. /PROJECT_LOCATION/nodejs console.js connector:job code=export_attribute_csv env=ENV
 	2. /PROJECT_LOCATION/nodejs console.js connector:job code=export_attribute_option_csv env=ENV
 	3. /PROJECT_LOCATION/nodejs console.js connector:job code=export_category_csv env=ENV
-	5. /PROJECT_LOCATION/nodejs console.js connector:job code=export_product_csv env=ENV
+	4. /PROJECT_LOCATION/nodejs console.js connector:job code=export_product_csv env=ENV
 
 	It will generate CSV file in "modules/pim/export" folder.
 
@@ -71,7 +71,8 @@ To import :
 	1. /PROJECT_LOCATION/nodejs console.js connector:job code=import_attribute_csv env=ENV
 	2. /PROJECT_LOCATION/nodejs console.js connector:job code=import_attribute_option_csv env=ENV
 	3. /PROJECT_LOCATION/nodejs console.js connector:job code=import_category_csv env=ENV
-	5. /PROJECT_LOCATION/nodejs console.js connector:job code=import_family_csv env=ENV
+	4. /PROJECT_LOCATION/nodejs console.js connector:job code=import_family_csv env=ENV
+	5. /PROJECT_LOCATION/nodejs console.js connector:job code=import_product_csv env=ENV
 
 	
 

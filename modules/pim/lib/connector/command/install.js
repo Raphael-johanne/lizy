@@ -63,7 +63,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/attributes",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "processor",
+				  processor : "import/processor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "attribute",
@@ -101,7 +101,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/categories",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "processor",
+				  processor : "import/processor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "category",
@@ -139,7 +139,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/export/families.csv",
 			  connector : {
 				  reader 	: "mongo/reader",
-				  processor : "processor",
+				  processor : "export/processor",
 				  writer 	: "csv/csvWriter"
 			  },
 			  fields 		: "code title cdate mdate",
@@ -158,7 +158,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/export/categories.csv",
 			  connector : {
 				  reader 	: "mongo/reader",
-				  processor : "processor",
+				  processor : "export/processor",
 				  writer 	: "csv/csvWriter"
 			  },
 			  fields 		: "code title cdate mdate",
@@ -177,7 +177,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/export/attributes.csv",
 			  connector : {
 				  reader 	: "mongo/reader",
-				  processor : "processor",
+				  processor : "export/processor",
 				  writer 	: "csv/csvWriter"
 			  },
 			  fields 		: "code title cdate mdate",
@@ -196,7 +196,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/export/attributes_options.csv",
 			  connector : {
 				  reader 	: "mongo/reader",
-				  processor : "processor",
+				  processor : "export/processor",
 				  writer 	: "csv/csvWriter"
 			  },
 			  fields 		: "code title cdate mdate",

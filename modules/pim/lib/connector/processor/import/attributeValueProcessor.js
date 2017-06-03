@@ -3,7 +3,7 @@
  * MIT Licensed
  */
 
-var Processor 	= require("../processor.js");
+var Processor 	= require("./processor.js");
 var events 		= require("events");
 var util 		= require("util");
 var moment 			= require('moment');
@@ -46,7 +46,10 @@ AttributeValueProcessor.prototype.treat = function(item, last, callback) {
 
 			var assignValues = function(attribute){
 				this.model.findOne({'code':attribute_code}, {}, function(err, doc){
-					
+					/**
+					* @TODO attribute not find error
+					*/
+
 					doc.mdate = moment().format(coreGlobal.getDefaultDateFormat());
 					
 					doc.values = attribute.values;
