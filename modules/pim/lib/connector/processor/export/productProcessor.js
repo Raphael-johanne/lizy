@@ -3,7 +3,7 @@
  * MIT Licensed
  */
 
-var Processor	= require("../processor.js");
+var Processor	= require("./processor.js");
 var events 		= require("events");
 var util 		= require("util");
 var mongoose	= require('mongoose');
@@ -20,7 +20,7 @@ function ProductProcessor(config, jobExecution) {
 
 util.inherits(ProductProcessor, Processor);
 
-ProductProcessor.prototype.treat = function(item, last, writerCallback) {
+ProductProcessor.prototype.treat = function(item, last, callback) {
 	
 	Family.findById(item.family, function(err, family) {
 		  if (err) {
@@ -32,7 +32,7 @@ ProductProcessor.prototype.treat = function(item, last, writerCallback) {
 			  product.mdate 	= item.mdate;
 			  product.family 	= family.code;
 			  product 			= merge(item.normalizedData, product);
-			  writerCallback.treat(product, last);
+			  callback.treat(product, last);
 		  }
 	});
 };

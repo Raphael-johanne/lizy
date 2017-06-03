@@ -3,7 +3,7 @@
  * MIT Licensed
  */
 
-var Processor 	= require("../processor.js");
+var Processor 	= require("./processor.js");
 var events 		= require("events");
 var util 		= require("util");
 var mongoose 	= require('mongoose');
@@ -33,7 +33,7 @@ function FamilyProcessor(config, jobExecution) {
 
 util.inherits(FamilyProcessor, Processor);
 
-FamilyProcessor.prototype.treat = function(item, last, callBack) {
+FamilyProcessor.prototype.treat = function(item, last, callback) {
 	
 	if (last === false) {
 		if (this.row === 0) {
@@ -79,7 +79,7 @@ FamilyProcessor.prototype.treat = function(item, last, callBack) {
 
 							item.mdate = moment().format(coreGlobal.getDefaultDateFormat());
 							
-							callBack.treat(item, false);
+							callback.treat(item, false);
 						})
 					}.bind(this);
 					assignAttributes(this.familyCode, this.familyTitle, this.familyAttributes);
