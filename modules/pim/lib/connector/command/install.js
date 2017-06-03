@@ -63,7 +63,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/attributes",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "import/attributeProcessor",
+				  processor : "processor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "attribute",
@@ -101,7 +101,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/categories",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "import/categoryProcessor",
+				  processor : "processor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "category",
@@ -119,7 +119,7 @@ installCommand.prototype.execute = function() {
 		  config : {
 			  path : "modules/pim/import/families",
 			  connector : {
-				  reader 	: "csv/reader",
+				  reader 	: "csv/familyReader",
 				  processor : "import/familyProcessor",
 				  writer 	: "mongo/writer"
 			  },
