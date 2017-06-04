@@ -63,7 +63,7 @@ CategoryController.controller = function(app, entity) {
 	  var formInstance = new forms();
 	  var form = formInstance.getEdit();
 	  
-	  Controller.prototype.render(res, req, 'pim/page/form.ejs', {
+	  Controller.prototype.render(res, req, form.template, {
     	  'form'	: formInstance.getHtml(form),
     	  'action'	: '/'+entity+'/save'
     	  });
@@ -72,23 +72,25 @@ CategoryController.controller = function(app, entity) {
   /**
   * Edit route
   */
-  app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
+	app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
 	
-	  var id = req.params.id;
+		var id = req.params.id;
 	  
-	  Item.findById(id, function(err, doc) {
+		Controller.prototype.addFileToHead('forms/tree/category.js', 'js');
+
+		Item.findById(id, function(err, doc) {
 		  if (err) return res.status(404).render('pim/page/404.ejs');
 		 
 		  var formInstance = new forms();
 		  var form = formInstance.getEdit(doc);
 		  
-		  Controller.prototype.render(res, req, 'pim/page/form.ejs', {
+		  Controller.prototype.render(res, req, form.template, {
 	    	  'form'	: formInstance.getHtml(form),
 	    	  'action'	: '/'+entity+'/update/'+ id
 	    	  }
 	      );
 		});
-  });
+  	});
   
   /**
    * Remove route

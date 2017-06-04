@@ -41,5 +41,6 @@
 	"Required": "Required",
 	"Email": "Email",
 	"Family": "Family",
-	"Save": "Save"
+	"Save": "Save",
+	"Category Tree": "Category Tree"
 }

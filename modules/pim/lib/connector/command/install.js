@@ -101,7 +101,7 @@ installCommand.prototype.execute = function() {
 			  path : "modules/pim/import/categories",
 			  connector : {
 				  reader 	: "csv/reader",
-				  processor : "import/processor",
+				  processor : "import/categoryProcessor",
 				  writer 	: "mongo/writer"
 			  },
 			  collection : "category",
