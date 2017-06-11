@@ -1,69 +1,71 @@
 var CategoryTree = function(options){
 	
-	this.isDragAndDropAllowed = options.dragAndDropAllowed || false;
+	this.isDragAndDropAllowed = options.isDragAndDropAllowed || false;
 	this.showInputs = options.showInputs || false;
+	this.tree = {};
 
-	this.init = function () {
-		this.initDragAndDrop();
-		this.initRootList();
+	this.init = function() {
+		this.initPlugins();
 	},
 
-	this.initRootList = function() {
-		this.getChildrenByParent(null, function(children){
-			this.createList(children, null);
-		}.bind(this));
-	},
+	this.initPlugins = function () {
+		let plugins = [];
 
-	this.getChildrenByParent = function(parentId, callback) {
-		parentId = (parentId) ? parentId : '';
-		$.ajax({
-            url : '/category/getChildrenByParent/' + parentId,
-            success : function(data){
-            	callback(data);
-            }
-        });
-	},
+		if (this.isDragAndDropAllowed === true) {
+			plugins.push('contextmenu');
+			plugins.push('dnd');
+			plugins.push('crrm');
+			plugins.push('state');
+			plugins.push('types');
+			plugins.push('wholerow');
+			this.initTree(plugins);
 
-	this.createList = function (children, parentId) {
-	
-		var ulEl = $('<ul/>');
+			this.initDragAndDrop();
+		}
 
-		if ($('#parent_' + parentId).length > 0 
-			&& $('#parent_' + parentId).next().is('ul')) {
-			$('#parent_' + parentId).next().remove();
-		} else {
-			children.forEach(function(item, index) {
+		if (this.showInputs === true) {
+			plugins.push('checkbox');
+			this.initTree(plugins);
 
-				var aEl = $('<a/>', {id:'parent_'+item._id, title:item.title, text:item.title});
-				aEl.click(function(event){
-					event.preventDefault();
-					this.getChildrenByParent(item._id, function(children){
-						this.createList(children, item._id);
-					}.bind(this));
-				}.bind(this));
-
-				var liEl = $('<li/>');
-				
-				if (this.showInputs === true) {
-					var inputEl = $('<input/>', {type:'checkbox', name:'selected_category_tree_item[]', value:item._id});
-					liEl.append(inputEl);					
-				}
-
-				liEl.append(aEl);
-				ulEl.append(liEl);
-			}.bind(this))
-
-			if (parentId === null) {
-				$("#category_tree").append(ulEl);
-			} else {
-				ulEl.insertAfter($('#parent_' + parentId));
-			}
+			this.initHiddenField();
 		}
 	},
+
+	this.initTree = function(plugins) {
+		this.tree = $("#category_tree").jstree({
+			 'core' : {
+			    "animation" : 0,
+	    		"check_callback" : true,
+	    		"themes" : { "stripes" : true },
+			  	'data' : {
+			    'url' : function (node) {
+			      return node.id === '#' ?
+			        '/category/getChildrenByParent/' :
+			        '/category/getChildrenByParent/' + node.id;
+			    },
+			    'data' : function (node) {
+			      return { 'id' : node.id };
+			    }
+			  }
+			},
+		  "plugins" : plugins
+		});
+	}
 
 	this.initDragAndDrop = function() {
-		if (this.isDragAndDropAllowed === false) {
-			return;
-		}
+		this.tree.bind("move_node.jstree", function (e, data) {
+	        $.ajax({
+	         	method: "POST",
+	         	data : {position : data.position, parentId : data.parent, categoryId: data.node.id},
+	            url : '/category/changeParent',
+	            success : function(data){
+	            	// @TODO Comfirm message
+	            }
+	        });
+		});
+	},
+
+	this.initHiddenField = function() {
+
 	}
 }

@@ -75,7 +75,8 @@ CategoryController.controller = function(app, entity) {
 	app.get('/'+entity+'/edit/:id', Controller.prototype.isAuthenticated, function(req, res) {
 	
 		var id = req.params.id;
-	  
+	    Controller.prototype.addFileToHead('jstree/style.css', 'css');
+	    Controller.prototype.addFileToHead('jquery/jstree/jstree.min.js', 'js');
 		Controller.prototype.addFileToHead('forms/tree/category.js', 'js');
 
 		Item.findById(id, function(err, doc) {

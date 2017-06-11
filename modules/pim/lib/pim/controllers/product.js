@@ -202,6 +202,8 @@ ProductController.controller = function(app, entity) {
 	   var form = formInstance.getEdit();
  	   var id 	= req.params.id;
 	  
+ 	   console.log(req.body);
+
  	   form.handle(req, {
  	        success: function (form) {
  	        	  Item.findById(id, function(err, doc) {
