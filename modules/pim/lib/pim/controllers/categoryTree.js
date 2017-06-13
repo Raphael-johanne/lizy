@@ -18,21 +18,19 @@ util.inherits(CategoryTreeController, Controller);
 CategoryTreeController.controller = function(app, entity) {
 
 	/**
-	* get children categories by parent
+	* get children categories by parent bind data if product is provided
 	*/
     app.get('/category/getChildrenByParent/:parentId?', Controller.prototype.isAuthenticated, function(req, res) {
-	    var parentId = (req.params.parentId == '') ? null: req.params.parentId;
-	  
-	  	Item.find({parent:parentId}, "_id title", {sort:{position: 1}}, function(err, docs) {
+	    let parentId = (req.params.parentId == '') ? null: req.params.parentId;
+
+	  	Item.find({parent:parentId}, "_id title", {sort:{position: 1}}, function(err, categories) {
 	  		res.setHeader('Content-Type', 'application/json');
-
-	  		let children = [];
-
-	  		docs.forEach(function(item, index){
-	  			children.push({text:item.title, id:item.id, children:true});
-	  		});
-
-	  		return res.send(JSON.stringify(children));
+	  			let children = [];
+				categories.forEach(function(category, index){
+	  				children.push({text:category.title, id:category.id, children:true});
+	  			});
+	  			return res.send(JSON.stringify(children));
+	  		
 		});
   	});
 
@@ -59,7 +57,7 @@ CategoryTreeController.controller = function(app, entity) {
 
 				doc.position = data.position;
 
-				doc.save( function ( err, currentItem, count ){
+				doc.save( function ( err, currentItem, count ) {
 				
 					Item.find({parent:data.parentId}, {}, {sort:{position: 1}}, function(err, docs){
 						docs.forEach(function(brotherItem, index){

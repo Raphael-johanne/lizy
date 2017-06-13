@@ -54,7 +54,7 @@ var CategoryTree = function(options){
 
 	this.initDragAndDrop = function() {
 		this.tree.bind("move_node.jstree", function (e, data) {
-	        $.ajax({
+	        $.ajax({	
 	         	method: "POST",
 	         	data : {position : data.position, parentId : data.parent, categoryId: data.node.id},
 	            url : '/category/changeParent',
@@ -66,6 +66,9 @@ var CategoryTree = function(options){
 	},
 
 	this.initHiddenField = function() {
-
+		$(document).on('click','#category_tree',function() {
+		    var selectedElmsIds = $('#category_tree').jstree("get_selected");
+		    $('#choosen_categories').val(selectedElmsIds.join());
+		}); 
 	}
 }
