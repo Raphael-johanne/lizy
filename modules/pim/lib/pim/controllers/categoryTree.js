@@ -6,7 +6,9 @@
 var Controller 	= require("./controller.js");
 var mongoose 	= require('mongoose');
 require('../models/category.js');
+require('../models/product.js');
 var Item     	= mongoose.model('category');
+var productItem = mongoose.model('product');
 var util 		= require("util");
 
 function CategoryTreeController() {
@@ -15,23 +17,49 @@ function CategoryTreeController() {
 
 util.inherits(CategoryTreeController, Controller);
 
-CategoryTreeController.controller = function(app, entity) {
+CategoryTreeController.getProductCategories = function (productId, callback) {
+	if (productId === null) return callback([]);
 
+	productItem.findById(productId, "categories", function(err, doc) {
+		return callback(doc.categories);
+	})
+}
+
+CategoryTreeController.controller = function(app, entity) {
 	/**
 	* get children categories by parent bind data if product is provided
 	*/
-    app.get('/category/getChildrenByParent/:parentId?', Controller.prototype.isAuthenticated, function(req, res) {
-	    let parentId = (req.params.parentId == '') ? null: req.params.parentId;
+    app.get('/category/getChildrenByParent/:parentId?/:productId?', Controller.prototype.isAuthenticated, function(req, res) {
+	    let parentId = (req.params.parentId == 'no-parent') ? null: req.params.parentId;
+	    let productId = (req.params.productId == '') ? null: req.params.productId;
 
-	  	Item.find({parent:parentId}, "_id title", {sort:{position: 1}}, function(err, categories) {
-	  		res.setHeader('Content-Type', 'application/json');
+	    CategoryTreeController.getProductCategories(productId, function(productCategories) {
+	    	Item.find({parent:parentId}, "_id title", {sort:{position: 1}}, function(err, categories) {
+	  			res.setHeader('Content-Type', 'application/json');
 	  			let children = [];
 				categories.forEach(function(category, index){
-	  				children.push({text:category.title, id:category.id, children:true});
+					let formatedCategory = {text:category.title, id:category.id, children:true};
+
+					if (productCategories.indexOf(category.id) !== -1) {
+						formatedCategory.state = { selected: true };
+					}
+
+	  				children.push(formatedCategory);
 	  			});
 	  			return res.send(JSON.stringify(children));
 	  		
-		});
+			});
+	    })
+  	});
+
+    app.get('/category/test/:productId', Controller.prototype.isAuthenticated, function(req, res) {
+	   
+	    let productId = (req.params.productId == '') ? null: req.params.productId;
+
+	    CategoryTreeController.getProductCategories(productId, function(productCategories) {
+  			res.setHeader('Content-Type', 'application/json');
+  			return res.send(JSON.stringify(productCategories));
+	    })
   	});
 
   	/**
