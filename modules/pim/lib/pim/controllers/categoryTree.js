@@ -55,7 +55,7 @@ CategoryTreeController.controller = function(app, entity) {
 	    })
   	});
 
-    app.get('/category/test/:productId', Controller.prototype.isAuthenticated, function(req, res) {
+    app.get('/category/massload/:productId?', Controller.prototype.isAuthenticated, function(req, res) {
 	   
 	    let productId = (req.params.productId == '') ? null: req.params.productId;
 

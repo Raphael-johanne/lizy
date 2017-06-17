@@ -22,9 +22,7 @@ var CategoryTree = function(options){
 			this.initTree(plugins);
 
 			this.initDragAndDrop();
-		}
-
-		if (this.showInputs === true) {
+		} else if (this.showInputs === true) {
 			plugins.push('checkbox');
 			plugins.push('state');
 			plugins.push('massload');
@@ -54,9 +52,8 @@ var CategoryTree = function(options){
 				    }
 			  }
 			}, 'massload' : {
-				'url' : '/category/test/5932d3b63c9b578c3521e2da',
+				'url' : '/category/massload' + productId,
 				 "data" : function (nodes) {
-				 	console.log(nodes.join(','));
 			        return { "ids" : nodes.join(",") };
 			      }
 			},
