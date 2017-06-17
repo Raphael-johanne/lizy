@@ -18,17 +18,21 @@ function CategoryTreeController() {
 util.inherits(CategoryTreeController, Controller);
 
 CategoryTreeController.getProductCategories = function (productId, callback) {
-	if (productId === null) return callback([]);
+
+	let returnDefault = new Array();
+
+	if (productId === null) return callback(returnDefault);
 
 	productItem.findById(productId, "categories", function(err, doc) {
-		return callback(doc.categories);
+
+		if (doc === null) return callback(returnDefault);
+
+		return callback((doc.categories)? doc.categories: returnDefault);
 	})
 }
 
 CategoryTreeController.controller = function(app, entity) {
-	/**
-	* get children categories by parent bind data if product is provided
-	*/
+	
     app.get('/category/getChildrenByParent/:parentId?/:productId?', Controller.prototype.isAuthenticated, function(req, res) {
 	    let parentId = (req.params.parentId == 'no-parent') ? null: req.params.parentId;
 	    let productId = (req.params.productId == '') ? null: req.params.productId;
@@ -45,9 +49,8 @@ CategoryTreeController.controller = function(app, entity) {
 					}
 
 	  				children.push(formatedCategory);
-	  			});
+	  			});	
 	  			return res.send(JSON.stringify(children));
-	  		
 			});
 	    })
   	});

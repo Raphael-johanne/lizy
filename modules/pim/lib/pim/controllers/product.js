@@ -66,12 +66,12 @@ ProductController.controller = function(app, entity) {
     	var formInstance = new forms();
    	  	var form = formInstance.getCreate();
    	  	
-		  Controller.prototype.addFileToHead('forms/product/form.js', 'js');
-		  Controller.prototype.addFileToHead('jquery/upload/js/jquery.iframe-transport.js', 'js');
-		  Controller.prototype.addFileToHead('jquery/upload/js/jquery.fileupload.js', 'js');
-		  Controller.prototype.addFileToHead('jstree/style.css', 'css');
-		  Controller.prototype.addFileToHead('jquery/jstree/jstree.min.js', 'js');
-		  Controller.prototype.addFileToHead('forms/tree/category.js', 'js');
+		Controller.prototype.addFileToHead('forms/product/form.js', 'js');
+		Controller.prototype.addFileToHead('jquery/upload/js/jquery.iframe-transport.js', 'js');
+		Controller.prototype.addFileToHead('jquery/upload/js/jquery.fileupload.js', 'js');
+		Controller.prototype.addFileToHead('jstree/style.css', 'css');
+		Controller.prototype.addFileToHead('jquery/jstree/jstree.min.js', 'js');
+		Controller.prototype.addFileToHead('forms/tree/category.js', 'js');
 
    	  	Controller.prototype.renderPopin(res, form.template, {
  	    	  'form' : form,
@@ -101,6 +101,7 @@ ProductController.controller = function(app, entity) {
 		  Controller.prototype.render(res, req, form.template, {
 	    	  'form'	: form.toHTML(),
 	    	  'action'	: '/'+entity+'/update/'+ id,
+	    	  'productId' : id
 	    	  }
 	      );
 	  });
@@ -186,22 +187,6 @@ ProductController.controller = function(app, entity) {
 	   form.handle(req, {
 	        success: function (form) {
 	        	let categories = req.body.categories;
-					/*
-					* @TODO Must pass by some managers
- 	        		* Do not save categories in normalize data
-					*/
-					delete req.body.categories; 					
-
- 	        		doc.normalizedData = req.body;
- 	        		
-
- 	        		/** 
- 	        		* @TODO Must pass by some managers
- 	        		*/
- 	        		doc.categories = categories.split(',');
-
- 	        		
- 	        		doc.mdate = Date.now();
                     req.session.message = {type:'success', message: 'Product has been succesfully created'};
 	        		new Item(form.data).save( function( err, item, count ){
 		        	    res.redirect('/'+ entity +'/edit/' + item._id);
