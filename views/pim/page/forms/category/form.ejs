@@ -1,0 +1,22 @@
+<form class="row col-lg-12" action="<%- action %>" method="POST">
+	
+	<div class="row col-lg-12">
+		<div class="btn-group pull-right" role="group">
+		  <a class="btn btn-default" href="javascript:history.go(-1)"><%- __('Back') %>	</a>
+		  <input class="btn btn-default" type="submit" />
+		</div>
+	</div>
+	<div class="row col-lg-12">
+		<div class="col-lg-4">
+			<%- __('Category Tree') %>
+			<div id="category_tree"></div>
+		</div>
+		<div class="col-lg-8">
+			<%- form %>
+		</div>
+	</div>
+</form>
+<script>
+	var categoryTree = new CategoryTree({isDragAndDropAllowed:true});
+	categoryTree.init();
+</script>

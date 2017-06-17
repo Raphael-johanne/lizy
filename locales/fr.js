@@ -41,5 +41,8 @@
 	"Required": "Required",
 	"Email": "Email",
 	"Family": "Family",
-	"Save": "Save"
+	"Save": "Save",
+	"Category Tree": "Category Tree",
+	"404 - Page not found": "404 - Page not found",
+	"Category Tree":"Arbre des catégories"
 }

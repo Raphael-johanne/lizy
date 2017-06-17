@@ -47,5 +47,6 @@
 	"Status": "Status",
 	"Locale": "Locale",
 	"Lisy": "Lisy",
-    "The family has been succesfully updated":"The family has been succesfully updated"
+    "The family has been succesfully updated":"The family has been succesfully updated",
+    "Category Tree":"Category Tree"
 }

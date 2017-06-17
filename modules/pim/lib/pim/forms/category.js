@@ -40,7 +40,7 @@ CategoryForm.prototype.getEdit = function(data) {
 	    ),
 	  });
 	
-	 return Form.prototype.afterCreate.call(this, form, data);
+	 return Form.prototype.afterCreate.call(this, form, data, 'pim/page/forms/category/form.ejs');
 };
 
 module.exports = CategoryForm;
